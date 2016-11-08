@@ -5,18 +5,43 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right navi">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <div>
+                <a href="@Url.Action("IndexUs", "UsersAdmin")">
+                    @if (File.Exists(Server.MapPath("~/Content/Immagini/FotoIscritti/" + @User.Identity.GetUserId() + ".jpg")))
+                    {
+                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @User.Identity.GetUserId() + ".jpg")" /><span>Gestisci profilo</span>
+
+                    }
+                    else
+                    {
+                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" /><span>Gestisci profilo</span>
+                    }
+                </a>
+            </div>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>
+            <div>
+                <h5><a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out"><span>Logout</span></a></h5>
+            </div>
+        </li>
     </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav navbar-right navi">
+        <li>
+            <div>
+                <h6>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", })</h6>
+            </div>
+        </li>
+
+        <li>
+            <div>
+                <h5><a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"><span>Login</span></a></h5>
+            </div>
+        </li>
     </ul>
 }

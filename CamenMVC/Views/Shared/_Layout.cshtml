@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - CAMEN Web-Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -17,13 +17,39 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Index", "Home")"><img class="img-logo-header" src="~/Content/Immagini/LogoHeaderBianco.png" /></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav btn-group">
+                    <li>
+                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">Chi siamo<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">@Html.ActionLink("Chi siamo", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("La nostra storia", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Referenze", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Rete di contatti", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("DBN", "Index", "Home")</a></li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">La RNF<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">@Html.ActionLink("Cos'è", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Perchè", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Evoluzione", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Metodi", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("ST Camen", "Index", "Home")</a></li>
+                        </ul>
+
+                    </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt"><span>Gestione eventi</span></a></div></li>
+                            <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open"><span>Gestione documenti</span></a></div></li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,8 +59,23 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+            <div class="pull-left">&copy; @DateTime.Now.Year - CAMEN Web-Application<br/>
+            <a href="mailto:info@camen.it" class="glyphicon glyphicon-envelope"> info@camen.it</a><br/>
+                    <strong>Associazione ST Camen</strong><br />
+                    <h5>
+                        <em>
+                            Via S. Cristoforo, 3-5 20144 Milano<br />
+                            P.I.: 04855900967 C.F.: 97380760153
+                        </em><br/>
+                        Tel.: 000 000000
+                    </h5>
+                </div>
+            <div class="pull-right">
+                <a href="http://www.cr-consult.eu"> <span>Almish<span style="color:#FF0000" lang="it">&amp;</span>Cesàre<span style="color:#FF0000">W</span>eb</span></a>
+
+            </div>
+
+               </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

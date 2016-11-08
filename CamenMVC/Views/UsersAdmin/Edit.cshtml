@@ -1,0 +1,92 @@
+﻿@model CamenMVC.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Gestione utenti";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Modifica</h4>
+<hr class="hr1" />
+<div class="row">
+    <div class="col col-md-4 text-center">
+        @if (File.Exists(@Server.MapPath("/Content/Immagini/FotoIscritti/" + @Html.DisplayFor(modelItem => Model.Id) + ".jpg")))
+        {
+            <img src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @Html.DisplayFor(modelItem => Model.Id) + ".jpg")" />
+        }
+        else
+        {
+            <img src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" />
+        }
+    </div>
+    <div class="col col-md-8">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nome)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cognome, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Cognome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Cognome)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        @Html.Label("Roles", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @foreach (var item in Model.RolesList)
+                {
+                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                                @Html.Label(item.Value, new { @class = "control-label" })<br />
+
+                            }
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('.datepicker').datepicker("option", "dateFormat", "dd/mm/yyyy");
+    </script>
+
+}
+
+
