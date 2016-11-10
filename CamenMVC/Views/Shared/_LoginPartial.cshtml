@@ -5,7 +5,7 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right navi">
+    <ul class="nav navbar-nav navbar-right">
         <li>
             <div>
                 <a href="@Url.Action("IndexUs", "UsersAdmin")">
@@ -23,7 +23,7 @@
         </li>
         <li>
             <div>
-                <h5><a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out"><span>Logout</span></a></h5>
+                <h4><a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out"><span>Logout</span></a></h4>
             </div>
         </li>
     </ul>
@@ -31,10 +31,10 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right navi">
+    <ul class="nav navbar-nav navbar-right">
         <li>
             <div>
-                <h6>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", })</h6>
+                <h5><a href="#nogo" class="glyphicon glyphicon-check" hreflang="@Url.Action("Register", "Account", new {id = "registerLink"})"><span>Registrati</span></a></h5>
             </div>
         </li>
 

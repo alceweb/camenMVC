@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CamenMVC.Models.SottoMenu>
+
+@{
+    ViewBag.Title = "Gestione sottomenu";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TestoMenu.TestoMenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestoSmenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestoMenu.TestoMenu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestoSmenu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pubblica)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Smenu_Id }) |
+            @Html.ActionLink("Pagina", "Details", new { id=item.Smenu_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Smenu_Id })
+        </td>
+    </tr>
+}
+
+</table>

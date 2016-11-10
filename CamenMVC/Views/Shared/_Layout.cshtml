@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using System;
+@using System.Collections.Generic;
+@using System.Data;
+@using System.Data.Entity;
+@using System.Linq;
+@using System.Net;
+@using System.Web;
+@using System.Web.Mvc;
+@using CamenMVC.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,10 +16,11 @@
     <title>@ViewBag.Title - CAMEN Web-Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top navi1">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,65 +32,81 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav btn-group">
-                    <li>
-                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">Chi siamo<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">@Html.ActionLink("Chi siamo", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("La nostra storia", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("Referenze", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("Rete di contatti", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("DBN", "Index", "Home")</a></li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">La RNF<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">@Html.ActionLink("Cos'è", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("Perchè", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("Evoluzione", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("Metodi", "Index", "Home")</a></li>
-                            <li><a href="#">@Html.ActionLink("ST Camen", "Index", "Home")</a></li>
-                        </ul>
-
-                    </li>
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "Eventis")" class="glyphicon glyphicon-list-alt"><span>Gestione eventi</span></a></div></li>
-                            <li><div><a href="@Url.Action("Index", "Documentis")" class="glyphicon glyphicon-folder-open"><span>Gestione documenti</span></a></div></li>
-                    }
+                    @{
+                        ApplicationDbContext db = new ApplicationDbContext();
+                        var menu = db.Menus.Where(n=>n.Pubblica == true).OrderBy(n => n.Posizione).ToList();
+                        ViewBag.Menu = menu;
+                        foreach (var item in ViewBag.Menu)
+                        {
+                            <li>
+                                <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (var item1 in item.SottoMenus)
+                                    {
+                                            <li><a href="@Url.Action("IndexUt", "Paginas", new {id = @item1.Smenu_Id })">@item1.TestoSmenu </a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    } 
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <div class="pull-left">&copy; @DateTime.Now.Year - CAMEN Web-Application<br/>
-            <a href="mailto:info@camen.it" class="glyphicon glyphicon-envelope"> info@camen.it</a><br/>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="navbar navbar-inverse navbar-fixed-bottom navi">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav btn-group">
+                    <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Menus")" class="glyphicon glyphicon-option-horizontal"><span>Gestione menu</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "SottoMenus")" class="glyphicon glyphicon-option-vertical"><span>Gestione sottomenu</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Paginas")" class="glyphicon glyphicon-modal-window"><span>Gestione pagine</span></a></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <div class="pull-left">
+                    &copy; @DateTime.Now.Year - CAMEN Web-Application<br />
+                    <a href="mailto:info@camen.it" class="glyphicon glyphicon-envelope"> info@camen.it</a><br />
                     <strong>Associazione ST Camen</strong><br />
                     <h5>
                         <em>
                             Via S. Cristoforo, 3-5 20144 Milano<br />
                             P.I.: 04855900967 C.F.: 97380760153
-                        </em><br/>
+                        </em><br />
                         Tel.: 000 000000
                     </h5>
                 </div>
-            <div class="pull-right">
-                <a href="http://www.cr-consult.eu"> <span>Almish<span style="color:#FF0000" lang="it">&amp;</span>Cesàre<span style="color:#FF0000">W</span>eb</span></a>
+                <div class="pull-right">
+                    <a href="http://www.cr-consult.eu"> <span>Almish<span style="color:#FF0000" lang="it">&amp;</span>Cesàre<span style="color:#FF0000">W</span>eb</span></a>
 
-            </div>
+                </div>
 
-               </footer>
-    </div>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        <script src="~/Scripts/jquery.filtertable.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('table').filterTable();
+            });
+        </script>
 </body>
 </html>

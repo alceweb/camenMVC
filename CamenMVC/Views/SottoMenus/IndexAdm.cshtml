@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CamenMVC.Models.SottoMenu>
+
+@{
+    ViewBag.Title = "Gestione sottomenu per";
+}
+<h2>@Request.QueryString["txtMenu"]</h2>
+
+<p>
+    @Html.ActionLink("Aggiungi sottomenu", "Create")
+</p>
+<table class="table table-hover">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestoSmenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </th>
+        <th>
+            Pagine
+        </th>
+    </tr>
+    @using CamenMVC.Models;
+    @foreach (var item in Model)
+    {
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var pagina = db.Paginas.Where(p => p.Smenu_Id == item.Smenu_Id);
+            int nPagine = pagina.Count();
+            <tr>
+                <td>
+                    @if (nPagine == 0)
+                    {
+                        <a href="@Url.Action("Delete", "SottoMenus", new { id = item.Smenu_Id })"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                    }
+                    <a class="pull-right" href="@Url.Action("Edit", "SottoMenus", new { id = item.Smenu_Id })"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestoSmenu)<br/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pubblica)
+            </td>
+            <td>
+                    @if (nPagine > 0)
+                    {
+                        ViewBag.Pagina = pagina;
+                        foreach (var item1 in ViewBag.Pagina)
+                        {
+                           <div><a class="btn btn-xs btn-primary" href="@Url.Action("Edit", "Paginas", new {id = @item1.Pagina_Id })">Id pagina: @item1.Pagina_Id</a></div>
+                        }
+                    }
+
+            </td>
+        </tr>
+        }
+     }
+
+</table>

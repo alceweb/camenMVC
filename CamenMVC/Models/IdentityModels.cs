@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace CamenMVC.Models
 {
@@ -24,6 +25,46 @@ namespace CamenMVC.Models
         }
     }
 
+    public class Menu
+    {
+        [Key]
+        [Display(Name ="Menu")]
+        public int Menu_Id { get; set; }
+        [Display(Name ="Posizione")]
+        public int Posizione { get; set; }
+        [Display(Name ="Testo menu")]
+        public string TestoMenu { get; set; }
+        [Display(Name ="Pubblica")]
+        public bool Pubblica { get; set; }
+
+        public virtual ICollection<SottoMenu> SottoMenus { get; set; }
+}
+
+    public class SottoMenu
+    {
+        [Key]
+        public int Smenu_Id { get; set; }
+        [Display(Name = "Menu")]
+
+        public int Menu_Id { get; set; }
+        public virtual Menu TestoMenu { get; set; }
+        [Display(Name ="Testo sottomenu")]
+        public string TestoSmenu { get; set; }
+        [Display(Name ="Pubblica")]
+        public bool Pubblica { get; set; }
+
+
+    }
+    public class Pagina
+    {
+        [Key]
+        public int Pagina_Id { get; set; }
+        public int Smenu_Id { get; set; }
+        public virtual SottoMenu TestoSmenu { get; set; }
+        [Display(Name ="Contenuto pagina")]
+        public string Contenuo { get; set; }
+
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -35,5 +76,8 @@ namespace CamenMVC.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<SottoMenu> SottoMenus { get; set; }
+        public DbSet<Pagina> Paginas { get; set; }
     }
 }

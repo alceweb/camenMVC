@@ -10,6 +10,7 @@ namespace CamenMVC.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

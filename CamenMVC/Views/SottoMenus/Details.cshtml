@@ -1,0 +1,42 @@
+﻿@model CamenMVC.Models.SottoMenu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SottoMenu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TestoMenu.TestoMenu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestoMenu.TestoMenu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestoSmenu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestoSmenu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pubblica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pubblica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Smenu_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

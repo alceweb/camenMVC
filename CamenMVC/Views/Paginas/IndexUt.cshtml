@@ -1,0 +1,14 @@
+﻿@model IEnumerable<CamenMVC.Models.Pagina>
+
+@{
+    ViewBag.Title = "IndexUt";
+}
+
+<h2>IndexUt</h2>
+@foreach (var item in Model)
+{
+    <div>
+                @Html.Raw(item.Contenuo)
+
+    </div>
+}
