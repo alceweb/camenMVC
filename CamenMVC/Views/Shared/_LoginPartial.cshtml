@@ -5,7 +5,7 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right navi2">
         <li>
             <div>
                 <a href="@Url.Action("IndexUs", "UsersAdmin")">
@@ -31,16 +31,16 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right navi2">
         <li>
             <div>
-                <h5><a href="#nogo" class="glyphicon glyphicon-check" hreflang="@Url.Action("Register", "Account", new {id = "registerLink"})"><span>Registrati</span></a></h5>
+                <h4><a href="#nogo" class="glyphicon glyphicon-check" hreflang="@Url.Action("Register", "Account", new {id = "registerLink"})"><span>Registrati</span></a></h4>
             </div>
         </li>
 
         <li>
             <div>
-                <h5><a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"><span>Login</span></a></h5>
+                <h4><a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"><span>Login</span></a></h4>
             </div>
         </li>
     </ul>

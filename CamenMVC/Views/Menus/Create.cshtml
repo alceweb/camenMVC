@@ -31,6 +31,19 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-2 control-label">
+                Select User Role
+            </label>
+            <div class="col-md-10">
+                @foreach (var item in (SelectList)ViewBag.RoleId)
+                {
+                    <input type="checkbox" name="SelectedRoles" value="@item.Text" class="checkbox-inline" />
+                    @Html.Label(item.Value, new { @class = "control-label" })
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Pubblica, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -49,5 +62,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tutti i menu", "Index")
 </div>

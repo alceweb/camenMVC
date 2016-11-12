@@ -67,6 +67,31 @@ namespace CamenMVC.Controllers
             return View(sottoMenu);
         }
 
+
+        public ActionResult Create1()
+        {
+            ViewBag.Menu = Request.QueryString["menu"];
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create1([Bind(Include = "Smenu_Id,Menu_Id,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
+        {
+            if (ModelState.IsValid)
+            {
+                int menu = Convert.ToInt32(Request.QueryString["menu"]);
+                sottoMenu.Menu_Id = menu;
+                db.SottoMenus.Add(sottoMenu);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Menu_Id = new SelectList(db.Menus, "Menu_Id", "TestoMenu", sottoMenu.Menu_Id);
+            return View(sottoMenu);
+        }
+
+
         // GET: SottoMenus/Edit/5
         public ActionResult Edit(int? id)
         {

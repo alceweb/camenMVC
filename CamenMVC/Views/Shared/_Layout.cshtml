@@ -7,6 +7,8 @@
 @using System.Web;
 @using System.Web.Mvc;
 @using CamenMVC.Models;
+@using Microsoft.AspNet.Identity;
+@using System.Web.Security;
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +22,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top navi1">
+    <div class="navbar navbar-inverse navi1">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -34,26 +36,85 @@
                 <ul class="nav navbar-nav btn-group">
                     @{
                         ApplicationDbContext db = new ApplicationDbContext();
-                        var menu = db.Menus.Where(n=>n.Pubblica == true).OrderBy(n => n.Posizione).ToList();
-                        ViewBag.Menu = menu;
-                        foreach (var item in ViewBag.Menu)
+                        //Inizio barra menu amministratore
+                        if (User.Identity.IsAuthenticated)
                         {
-                            <li>
-                                <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    @foreach (var item1 in item.SottoMenus)
-                                    {
-                                            <li><a href="@Url.Action("IndexUt", "Paginas", new {id = @item1.Smenu_Id })">@item1.TestoSmenu </a></li>
-                                    }
-                                </ul>
-                            </li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                var menu = db.Menus.OrderBy(n => n.Posizione).ToList();
+                                ViewBag.Menu = menu;
+                                foreach (var item in ViewBag.Menu)
+                                {
+                                    <li>
+                                        @if (@item.Pubblica == true)
+                                        {
+                                            @Html.ActionLink(" ", "Edit", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink(" ", "Edit", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="#nogo" class="dropdown-toggle" data-toggle="dropdown"><b class="text-danger">@item.TestoMenu</b><b class="caret"></b></a>
+                                        }
+                                        @*Inizio barra sottomenu amministratore*@
+                                        <ul class="dropdown-menu" role="menu">
+                                            @foreach (var item1 in item.SottoMenus)
+                                            {
+                                                if (item1.Pubblica == true)
+                                                {
+                                                    <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu</a></li></c>
+
+                                                }
+                                                else
+                                                {
+                                                    <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })"><b class="text-danger">@item1.TestoSmenu</b> </a></li></c>
+                                                }
+                                            }
+
+                                            <c><li><hr class="hr1" /><a class="glyphicon glyphicon-plus" href="@Url.Action("Create1", "SottoMenus", new { menu = item.Menu_Id })"></a></li></c>
+                                        </ul>
+                                        @*Fine barra sottomenu amministratore*@
+                                    </li>
+                                }
+                                <li><a class="glyphicon glyphicon-plus" href="@Url.Action("Create", "Menus")"></a></li>
+                            }
                         }
-                    } 
+                        //Fine barra menu amministratore
+                        //Inizio barra menu utenti
+                        else
+                        {
+                            var menu = db.Menus.Where(n => n.Pubblica == true && n.Ruolo == "Anonimous").OrderBy(n => n.Posizione).ToList();
+                            ViewBag.Menu = menu;
+                            @*Inizio barra sottomenu utenti*@
+                    foreach (var item in ViewBag.Menu)
+                    {
+                        <li>
+                            <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (var item1 in item.SottoMenus)
+                                        {
+                                            if (item1.Pubblica == true)
+                                            {
+                                        <li><a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a></li>
+                                            }
+                                        }
+                            </ul>
+                        </li>
+                            if (User.Identity.IsAuthenticated)
+                            {
+                            <li>
+                                qui
+                                <a href="#nogo">@item.Ruolo</a>
+                            </li>
+                            }
+                        }
+                    }
+                    }
+                    @*Fine barra menu utenti*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-        </div>
+            </div>
     </div>
+@*Inizio barra gestione utenti ruoli amministratore*@
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <div class="navbar navbar-inverse navbar-fixed-bottom navi">
@@ -75,6 +136,8 @@
         </div>
     </div>
 }
+@*Fine barra gestione utenti ruoli amministratore*@
+
         <div class="container body-content">
             @RenderBody()
             <hr />

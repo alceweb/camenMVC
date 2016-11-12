@@ -4,9 +4,31 @@
     ViewBag.Title = "IndexUt";
 }
 
-<h2>IndexUt</h2>
+<h2>
+    @foreach (var item in ViewBag.Intestazione)
+    {
+        @item
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        foreach (var item in ViewBag.SmenuId)
+        {
+            <a href="@Url.Action("CreateAd", "Paginas", new {smenuId = item })" class="glyphicon glyphicon-plus">Aggiungi pagina</a>
+        }
+
+    }
+    </h2>
+
+        
 @foreach (var item in Model)
 {
+    if (User.IsInRole("Admin"))
+    {
+        <hr/>
+        <h3>
+            <a href="@Url.Action("Edit", "Paginas", new {id = item.Pagina_Id})"><span class="glyphicon glyphicon-pencil"></span></a>
+        </h3>
+    }
     <div>
                 @Html.Raw(item.Contenuo)
 

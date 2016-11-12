@@ -28,6 +28,10 @@ namespace CamenMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var intestazione = db.SottoMenus.Where(s => s.Smenu_Id == id).Select(s=>s.TestoSmenu);
+            ViewBag.Intestazione = intestazione;
+            var smenuId = db.SottoMenus.Where(s => s.Smenu_Id == id).Select(s => s.Smenu_Id);
+            ViewBag.SmenuId = smenuId;
             var pagina = db.Paginas.Where(p => p.Smenu_Id == id).ToList();
             //Pagina pagina = db.Paginas.Find(id);
             if (pagina == null)
@@ -80,6 +84,32 @@ namespace CamenMVC.Controllers
         }
 
         // GET: Paginas/Edit/5
+
+        public ActionResult CreateAd()
+        {
+            ViewBag.Smenu_Id = new SelectList(db.SottoMenus, "Smenu_Id", "TestoSmenu");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAd([Bind(Include = "Pagina_Id,Smenu_Id", Exclude = "Contenuo")] Pagina pagina)
+        {
+            FormCollection collection = new FormCollection(Request.Unvalidated().Form);
+            pagina.Contenuo = collection["Contenuo"];
+            if (ModelState.IsValid)
+            {
+                int smenuid = Convert.ToInt32(Request.QueryString["SmenuId"]);
+                pagina.Smenu_Id = smenuid;
+                db.Paginas.Add(pagina);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Smenu_Id = new SelectList(db.SottoMenus, "Smenu_Id", "TestoSmenu", pagina.Smenu_Id);
+            return View(pagina);
+        }
+
+
         public ActionResult Edit(int? id)
         {
             if (id == null)

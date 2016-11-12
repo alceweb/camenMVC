@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuRuolisController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\PaginasController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -189,6 +190,14 @@
     <Compile Include="Migrations\201611081442407_StrutturaMenu.cs" />
     <Compile Include="Migrations\201611081442407_StrutturaMenu.Designer.cs">
       <DependentUpon>201611081442407_StrutturaMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611110649172_menuRuolo.cs" />
+    <Compile Include="Migrations\201611110649172_menuRuolo.Designer.cs">
+      <DependentUpon>201611110649172_menuRuolo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611111128313_menuruoli.cs" />
+    <Compile Include="Migrations\201611111128313_menuruoli.Designer.cs">
+      <DependentUpon>201611111128313_menuruoli.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -651,6 +660,14 @@
     <Content Include="Views\Paginas\Index.cshtml" />
     <Content Include="Views\Paginas\IndexUt.cshtml" />
     <Content Include="Views\SottoMenus\IndexAdm.cshtml" />
+    <Content Include="Views\SottoMenus\Create1.cshtml" />
+    <Content Include="Views\MenuRuolis\Create.cshtml" />
+    <Content Include="Views\MenuRuolis\Delete.cshtml" />
+    <Content Include="Views\MenuRuolis\Details.cshtml" />
+    <Content Include="Views\MenuRuolis\Edit.cshtml" />
+    <Content Include="Views\MenuRuolis\Index.cshtml" />
+    <Content Include="Views\Menus\EditR.cshtml" />
+    <Content Include="Views\Paginas\CreateAd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -669,6 +686,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611081442407_StrutturaMenu.resx">
       <DependentUpon>201611081442407_StrutturaMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611110649172_menuRuolo.resx">
+      <DependentUpon>201611110649172_menuRuolo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611111128313_menuruoli.resx">
+      <DependentUpon>201611111128313_menuruoli.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

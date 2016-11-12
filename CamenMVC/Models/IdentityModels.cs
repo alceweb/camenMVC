@@ -36,7 +36,7 @@ namespace CamenMVC.Models
         public string TestoMenu { get; set; }
         [Display(Name ="Pubblica")]
         public bool Pubblica { get; set; }
-
+        public string Ruolo { get; set; }
         public virtual ICollection<SottoMenu> SottoMenus { get; set; }
 }
 
@@ -65,6 +65,15 @@ namespace CamenMVC.Models
         public string Contenuo { get; set; }
 
     }
+
+    public class MenuRuoli
+    {
+        [Key]
+        public int MenuRuoli_Id { get; set; }
+        public string Ruolo { get; set; }
+        public int Menu_Id { get; set; }
+        public virtual Menu TestoMenu { get; set; }
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -79,5 +88,6 @@ namespace CamenMVC.Models
         public DbSet<Menu> Menus { get; set; }
         public DbSet<SottoMenu> SottoMenus { get; set; }
         public DbSet<Pagina> Paginas { get; set; }
+        public DbSet<MenuRuoli> MenuRuolis { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -61,14 +60,6 @@ textarea {
      z-index:10;
      position:relative;
     }
-    .navi a:hover {
-    /*transition: all 0.8s ease;
-    text-shadow: 0px 0px 40px #4f4f4f;
-    color: #22486F;
-    -ms-transform: scale(1.5,1.5);  IE 9 
-    -webkit-transform: scale(1.5,1.5);  Chrome, Safari, Opera 
-    transform: scale(1.5,1.5);*/
-    }
     .navi li a span{
     transition: all 0.8s ease;
     color:#000;
@@ -81,10 +72,6 @@ textarea {
     display:none;
     background-color:rgba(235, 235, 235, 0.00);
     bottom:40px;
-    }
-    .navi li a img{
-            transition: all 0.8s ease;
-
     }
     .navi a:hover span {
     position:absolute;
@@ -107,12 +94,14 @@ textarea {
     padding:0;
 }
     .navi1 a {
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.8s ease;
-    font-size: 1.2em;
-    margin: 0px 15px 0px 0px;
+    display: inline-block !important;
+    padding:0px 0px;
+    margin:0px !important;
 }
+    .navi1 c a{
+        font-size:12px;
+        padding: 3px 5px;
+    }
     .navi1 li {
      color:#fff !important;
    }
@@ -154,7 +143,48 @@ textarea {
 
 
 
+
+.navi2 {
+    margin:0;
+    padding:0;
+}
+    .navi2 a {
+    text-decoration: none;
+    color: #fff !important;
+    font-weight: bold;
+    transition: all 0.8s ease;
+}
+    .navi2 li {
+     color:#fff !important;
+   }
+    .navi2 li div{
+     padding: 0px 13px 0px 13px;
+     z-index:10;
+     position:relative;
+    }
+    .navi2 li a span{
+    transition: all 0.8s ease;
+    color:#000;
+    overflow:no-content;
+    z-index:20;
+    display:none;
+    background-color:rgba(235, 235, 235, 0.00);
+    }
+    .navi2 a:hover span {
+    position:absolute;
+    display:flex;
+    transition: all 0.8s ease;
+    text-shadow: 0px 0px 10px #fff;
+    color: #22486F;
+    background-color:rgba(235, 235, 235, 0.80);
+    padding: 0px 1px 1px 1px;
+    border-radius:1px;
+    }
 .b{
  font-size:30px;
  color:#fff;
 }       
+
+.hr1{
+    margin: 10px 0px 10px 0px;
+}
