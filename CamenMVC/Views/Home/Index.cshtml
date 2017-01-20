@@ -1,6 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
-<div class="text-center">
-    <img class="img-logo" src="~/Content/Immagini/LogoNewTrasp.png" />
-</div>
+@if (ViewBag.SplashCount > 0)
+{
+    <div class="jumbo">
+        @foreach (var item in Model)
+        {
+            <hr class="hr1" />
+            <h2>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="@Url.Action("Edit", "Splashes", new {id = @item.Splash_Id })" class="glyphicon glyphicon-pencil text-success"></a>
+                }
+                    @item.Titolo
+            </h2>
+            <h3>@item.SottoTitolo</h3>
+            <p>@Html.Raw(@item.Testo)</p>
+        }
+    </div>
+
+}

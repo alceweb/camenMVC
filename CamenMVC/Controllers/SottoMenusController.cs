@@ -10,6 +10,8 @@ using CamenMVC.Models;
 
 namespace CamenMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class SottoMenusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -54,7 +56,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Smenu_Id,Menu_Id,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
+        public ActionResult Create([Bind(Include = "Smenu_Id,Menu_Id,Posizione,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +78,7 @@ namespace CamenMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create1([Bind(Include = "Smenu_Id,Menu_Id,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
+        public ActionResult Create1([Bind(Include = "Smenu_Id,Menu_Id,Posizione,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +115,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Smenu_Id,Menu_Id,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
+        public ActionResult Edit([Bind(Include = "Smenu_Id,Posizione,Menu_Id,TestoSmenu,Pubblica")] SottoMenu sottoMenu)
         {
             if (ModelState.IsValid)
             {

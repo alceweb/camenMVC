@@ -37,7 +37,7 @@
             <div class="col-md-10">
                 @foreach (var item in (SelectList)ViewBag.RoleId)
                 {
-                    <input type="checkbox" name="SelectedRoles" value="@item.Text" class="checkbox-inline" />
+                    @Html.RadioButtonFor(x=>x.Ruolo, @item.Text)
                     @Html.Label(item.Value, new { @class = "control-label" })
                 }
             </div>

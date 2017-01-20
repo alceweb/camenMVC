@@ -1,0 +1,58 @@
+﻿@model CamenMVC.Models.Splash
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Splash</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SottoTitolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testo)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Testo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataF)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.Splash_Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Torna alla lista", "Index", null, new {@class="btn btn-primary" })
+</p>

@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Menu</h4>
         <hr />
@@ -32,6 +32,30 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ruolo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <input type="text" name="Ruolo" class="form-control" id="inpRuolo" value="@Model.Ruolo" /><br />
+                    @foreach (var item in ViewBag.RolesList)
+                    {
+                        <label>
+                            <input type="radio" name="RuoloRadio" id="@item.Id" value="@item.Name" autocomplete="off">@item.Name
+                        </label><br />
+                    }
+                    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+                   <script>
+                        $(':radio[name="RuoloRadio"]').change(function () {
+                            var rol = $('[name="RuoloRadio"]:checked').val();
+                            $('#inpRuolo').val(rol);
+                        });
+                    </script>
+                </div>
+            </div>
+
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Pubblica, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -43,34 +67,36 @@
         </div>
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-        <hr/>
         <div class="form-group">
-            <label class="control-label col-md-2">Pagina visibile da</label>
-            <div class="col-md-10">
-                @if (ViewBag.RuoliCount >= 1)
-                {
-                    foreach (var item in ViewBag.Ruoli)
-                    {
-                        <span class="badge">@item.Ruolo </span>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Lista menu", "Index", null, new { @class = "btn btn-danger" })
 
-                    }
-                }
-                else
-                {
-                    <span class="badge">Tutti </span>
-                }
-                    <a href="@Url.Action("EditR", "Menus", new {id = Model.Menu_Id, menu = Model.TestoMenu })" class="text-danger h3"><span class="glyphicon glyphicon-pencil"></span></a>
+
             </div>
         </div>
-        </div>
+        @*sezione per un eventuale assegnazione dei menu a più ruoli*@
+        @*
+        <hr />
+            <div class="form-group">
+                <label class="control-label col-md-2">Pagina visibile da</label>
+                <div class="col-md-10">
+                    @if (ViewBag.RuoliCount >= 1)
+                    {
+                        foreach (var item in ViewBag.Ruoli)
+                        {
+                            <span class="badge">@item.Ruolo </span>
+
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge">Nessuno</span>
+                    }
+                    <a href="@Url.Action("EditR", "Menus", new {id = Model.Menu_Id, menu = Model.TestoMenu })" class="text-danger h3"><span class="glyphicon glyphicon-pencil"></span></a>
+                </div>
+            </div>*@
+    </div>
 
 }
 

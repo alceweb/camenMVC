@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CamenMVC.Models.Splash>
+
+@{
+    ViewBag.Title = "Splash";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Splashes")" class="btn btn-primary"><span class="badge">@ViewBag.SplashCount </span> Nuovo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataF)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SottoTitolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataF)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Splash_Id }, new {@class="btn btn-xs btn-success" })
+            @Html.ActionLink("Details", "Details", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

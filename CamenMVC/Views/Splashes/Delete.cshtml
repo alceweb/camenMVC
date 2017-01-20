@@ -1,0 +1,64 @@
+﻿@model CamenMVC.Models.Splash
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Splash</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SottoTitolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SottoTitolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Testo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataF)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancella" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "Index", null, new {@class="btn btn-success" })
+        </div>
+    }
+</div>

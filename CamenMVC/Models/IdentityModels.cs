@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System;
 
 namespace CamenMVC.Models
 {
@@ -38,6 +39,7 @@ namespace CamenMVC.Models
         public bool Pubblica { get; set; }
         public string Ruolo { get; set; }
         public virtual ICollection<SottoMenu> SottoMenus { get; set; }
+        public virtual ICollection<MenuRuoli> MenuRuoli { get; set; }
 }
 
     public class SottoMenu
@@ -52,7 +54,9 @@ namespace CamenMVC.Models
         public string TestoSmenu { get; set; }
         [Display(Name ="Pubblica")]
         public bool Pubblica { get; set; }
-
+        [Display(Name = "Posizione")]
+        public int Posizione { get; set; }
+        public virtual ICollection<Pagina> Paginas { get; set; }
 
     }
     public class Pagina
@@ -73,6 +77,27 @@ namespace CamenMVC.Models
         public string Ruolo { get; set; }
         public int Menu_Id { get; set; }
         public virtual Menu TestoMenu { get; set; }
+
+    }
+
+    public class Splash
+    {
+        [Key]
+        public int Splash_Id { get; set; }
+        [Display(Name ="Titolo")]
+        public string Titolo { get; set; }
+        [Display(Name = "Sotto titolo")]
+        public string SottoTitolo { get; set; }
+        [Display(Name = "Testo")]
+        public string Testo { get; set; }
+        [Display(Name = "Data inizio pubblicazione")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataI { get; set; }
+        [Display(Name = "Data fine pubblicazione")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataF { get; set; }
     }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -89,5 +114,6 @@ namespace CamenMVC.Models
         public DbSet<SottoMenu> SottoMenus { get; set; }
         public DbSet<Pagina> Paginas { get; set; }
         public DbSet<MenuRuoli> MenuRuolis { get; set; }
+        public DbSet<Splash> Splashs { get; set; }
     }
 }

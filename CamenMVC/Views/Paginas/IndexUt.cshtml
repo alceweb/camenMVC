@@ -7,7 +7,7 @@
 <h2>
     @foreach (var item in ViewBag.Intestazione)
     {
-        @item
+        <span>@item</span>
     }
     @if (User.IsInRole("Admin"))
     {

@@ -16,6 +16,7 @@ namespace CamenMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Paginas
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var paginas = db.Paginas.Include(p => p.TestoSmenu).OrderBy(p=>p.TestoSmenu.TestoSmenu);
@@ -42,6 +43,7 @@ namespace CamenMVC.Controllers
         }
 
         // GET: Paginas/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,6 +59,7 @@ namespace CamenMVC.Controllers
         }
 
         // GET: Paginas/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.Smenu_Id = new SelectList(db.SottoMenus, "Smenu_Id", "TestoSmenu");
@@ -85,6 +88,7 @@ namespace CamenMVC.Controllers
 
         // GET: Paginas/Edit/5
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateAd()
         {
             ViewBag.Smenu_Id = new SelectList(db.SottoMenus, "Smenu_Id", "TestoSmenu");
@@ -110,6 +114,7 @@ namespace CamenMVC.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -145,6 +150,7 @@ namespace CamenMVC.Controllers
         }
 
         // GET: Paginas/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -167,7 +173,7 @@ namespace CamenMVC.Controllers
             Pagina pagina = db.Paginas.Find(id);
             db.Paginas.Remove(pagina);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Sotoomenus", new {id = Request.QueryString["sm"] });
         }
 
         protected override void Dispose(bool disposing)

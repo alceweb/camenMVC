@@ -6,7 +6,15 @@
 
 <h2>Modifica assegnaziona menu a ruoli </h2>
 <h4>MENU: <span class="text-danger">@Html.DisplayFor(model => model.TestoMenu)</span></h4>
-<span class="label label-info">ATTENZIONE: tutti i ruoli già assegnati verrano modificati con la nuova selezione</span>
+<hr />
+<div>
+    Il menu è assegnato ai seguenti ruoli: 
+    @foreach (var item in ViewBag.AssRole)
+    {
+        <span class="badge">@item.Ruolo</span>
+    }
+</div>
+<span class="label label-danger">ATTENZIONE: tutti i ruoli già assegnati verrano modificati con la nuova selezione</span>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,7 +22,7 @@
     <div class="form-horizontal">
         <div class="form-group">
             <label class="col-md-2 control-label">
-                Seleziona i ruoli
+                Seleziona i nuoi ruoli da assegnare
             </label>
             <div class="col-md-10">
                 @foreach (var item in (SelectList)ViewBag.RoleId)
@@ -26,7 +34,8 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Assegna" class="btn btn-default" />
+                <input type="submit" value="Assegna" class="btn btn-success" />
+                @Html.ActionLink("Annulla", "Edit", "Menus", new { id = @Model.Menu_Id }, new {@class="btn btn-primary" })
             </div>
         </div>
     </div>
@@ -34,6 +43,6 @@
 
 <div><span class="label label-danger">@ViewBag.Message</span></div>
 <div>
-    @Html.ActionLink("Annulla", "Edit", "Menus", new { id = @Model.Menu_Id }, null)
+    
 </div>
 

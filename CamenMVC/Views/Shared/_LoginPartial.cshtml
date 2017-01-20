@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right navi2">
         <li>
-            <div>
+            <div class="pull-right">
                 <a href="@Url.Action("IndexUs", "UsersAdmin")">
                     @if (File.Exists(Server.MapPath("~/Content/Immagini/FotoIscritti/" + @User.Identity.GetUserId() + ".jpg")))
                     {
@@ -16,13 +16,11 @@
                     }
                     else
                     {
-                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" /><span>Gestisci profilo</span>
+                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" /><span>@User.Identity.Name <br/>Gestisci profilo</span>
                     }
                 </a>
             </div>
-        </li>
-        <li>
-            <div>
+            <div class="pull-right">
                 <h4><a href="javascript:document.getElementById('logoutForm').submit()" class="glyphicon glyphicon-log-out"><span>Logout</span></a></h4>
             </div>
         </li>
@@ -33,13 +31,10 @@ else
 {
     <ul class="nav navbar-nav navbar-right navi2">
         <li>
-            <div>
+            <div class="pull-right">
                 <h4><a href="#nogo" class="glyphicon glyphicon-check" hreflang="@Url.Action("Register", "Account", new {id = "registerLink"})"><span>Registrati</span></a></h4>
             </div>
-        </li>
-
-        <li>
-            <div>
+            <div class="pull-right">
                 <h4><a id="loginlink" class="glyphicon glyphicon-log-in" href="@Url.Action("Login", "Account")"><span>Login</span></a></h4>
             </div>
         </li>

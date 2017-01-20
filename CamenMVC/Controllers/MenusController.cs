@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace CamenMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class MenusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -47,7 +49,8 @@ namespace CamenMVC.Controllers
         // GET: Menus
         public ActionResult Index()
         {
-            return View(db.Menus.ToList());
+            var menu = db.Menus.Include(s=>s.SottoMenus).OrderBy(o=>o.Posizione).ToList();
+            return View(menu);
         }
 
         // GET: Menus/Details/5
@@ -84,13 +87,6 @@ namespace CamenMVC.Controllers
             {
                 db.Menus.Add(menu);
                 db.SaveChanges();
-                for (int i =0; i < selectedRoles.Length; i++)
-                {
-                    menuruoli.Menu_Id = menu.Menu_Id;
-                    menuruoli.Ruolo = selectedRoles[i];
-                    db.MenuRuolis.Add(menuruoli);
-                    db.SaveChanges();
-                }
                 return RedirectToAction("Index");
             }
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
@@ -100,7 +96,10 @@ namespace CamenMVC.Controllers
         public async Task<ActionResult> EditR(int? id)
         {
             Menu menu = db.Menus.Find(id);
-            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+            var assRole = db.MenuRuolis.Where(m => m.Menu_Id == id);
+            ViewBag.AssRole = assRole;
+            var selRole = await RoleManager.Roles.ToListAsync();
+            ViewBag.RoleId = new SelectList(selRole, "Name", "Name");
             return View(menu);
         }
 
@@ -156,9 +155,12 @@ namespace CamenMVC.Controllers
             {
                 return HttpNotFound();
             }
-            var ruoli = db.MenuRuolis.Where(m => m.Menu_Id == id);
-            ViewBag.Ruoli = ruoli;
-            ViewBag.RuoliCount = ruoli.Count();
+            var roleslist = db.Roles.OrderBy(r => r.Name);
+            ViewBag.RolesList = roleslist;
+            //sezione pronta per mmenu agganciati a ruoli multipli
+            //var ruoli = db.MenuRuolis.Where(m => m.Menu_Id == id);
+            //ViewBag.Ruoli = ruoli;
+            //ViewBag.RuoliCount = ruoli.Count();
             return View(menu);
         }
 
@@ -167,7 +169,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Menu_Id,Posizione,TestoMenu,Pubblica")] Menu menu)
+        public ActionResult Edit([Bind(Include = "Menu_Id,Posizione,TestoMenu,Pubblica,Ruolo")] Menu menu)
         {
             if (ModelState.IsValid)
             {

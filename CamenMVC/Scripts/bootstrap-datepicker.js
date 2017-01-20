@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.6.4 (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -870,8 +870,8 @@
 				cls.push('disabled');
 			}
 			if (this.dateIsDisabled(date)){
-				cls.push('disabled', 'disabled-date');
-			}
+				cls.push('disabled', 'disabled-date');	
+			} 
 			if ($.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
 				cls.push('highlighted');
 			}
@@ -1030,9 +1030,15 @@
 						tooltip = before.tooltip;
 				}
 
-				clsName = $.unique(clsName);
-				
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
+				//Fallback to unique function for older jquery versions
+				if ($.isFunction($.uniqueSort)) {
+					clsName = $.uniqueSort(clsName);
+				} else {
+					clsName = $.unique(clsName);
+				}
+
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1130,16 +1136,16 @@
 			switch (this.viewMode){
 				case 0:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()){
-						this.picker.find('.prev').addClass('disabled');
+						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
 					else {
-						this.picker.find('.prev').removeClass('disabled');
+						this.picker.find('.prev').css({visibility: 'visible'});
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()){
-						this.picker.find('.next').addClass('disabled');
+						this.picker.find('.next').css({visibility: 'hidden'});
 					}
 					else {
-						this.picker.find('.next').removeClass('disabled');
+						this.picker.find('.next').css({visibility: 'visible'});
 					}
 					break;
 				case 1:
@@ -1147,16 +1153,16 @@
 				case 3:
 				case 4:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
-						this.picker.find('.prev').addClass('disabled');
+						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
 					else {
-						this.picker.find('.prev').removeClass('disabled');
+						this.picker.find('.prev').css({visibility: 'visible'});
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() || this.o.maxViewMode < 2){
-						this.picker.find('.next').addClass('disabled');
+						this.picker.find('.next').css({visibility: 'hidden'});
 					}
 					else {
-						this.picker.find('.next').removeClass('disabled');
+						this.picker.find('.next').css({visibility: 'visible'});
 					}
 					break;
 			}
@@ -1732,7 +1738,7 @@
 		datesDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
-		format: 'dd/mm/yyyy',
+		format: 'mm/dd/yyyy',
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
@@ -1752,7 +1758,6 @@
 		zIndexOffset: 10,
 		container: 'body',
 		immediateUpdates: false,
-		dateCells:false,
 		title: '',
 		templates: {
 			leftArrow: '&laquo;',
@@ -2067,7 +2072,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.7.0-dev';
+	$.fn.datepicker.version = '1.6.4';
 
 	/* DATEPICKER DATA-API
 	* ================== */
