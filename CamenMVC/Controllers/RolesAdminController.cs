@@ -69,7 +69,7 @@ namespace CamenMVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var role = await RoleManager.FindByIdAsync(id);
-            // Get the list of Users in this Role
+            // Crea la lista degli utenti in questo ruolo
             var users = new List<ApplicationUser>();
             foreach (var user in UserManager.Users.ToList())
             {

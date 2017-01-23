@@ -99,6 +99,44 @@ namespace CamenMVC.Models
         [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataF { get; set; }
     }
+
+    public class Documenti
+    {
+        [Key]
+        public int Documenti_Id { get; set; }
+        [Display(Name = "Titolo documento")]
+        public string Titolo { get; set; }
+        [Display(Name = "Sotto titolo documento")]
+        public string SottoTitolo { get; set; }
+
+        [Display(Name ="Evento")]
+        public int Evento { get; set; }
+        public virtual Eventi NomeEvento { get; set; }
+
+        [Display(Name = "Descrizione")]
+        public string Descrizione { get; set; }
+
+    }
+
+    public class Eventi
+    {
+        [Key]
+        public int Evento_Id { get; set; }
+        [Display(Name ="Nome Evento")]
+        public string NomeEvento { get; set; }
+    }
+
+    public class DocRuoli
+    {
+        [Key]
+        public int DocRuoli_Id { get; set; }
+        public string RoleId { get; set; }
+        public virtual ApplicationRoleManager Id { get; set; }
+        public int Documenti_Id { get; set; }
+        public virtual Documenti  Titolo { get; set; }
+
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -115,5 +153,8 @@ namespace CamenMVC.Models
         public DbSet<Pagina> Paginas { get; set; }
         public DbSet<MenuRuoli> MenuRuolis { get; set; }
         public DbSet<Splash> Splashs { get; set; }
+        public DbSet<Documenti> Documentis { get; set; }
+        public DbSet<DocRuoli> DocRuolis { get; set; }
+        public DbSet<Eventi> Eventis { get; set; }
     }
 }

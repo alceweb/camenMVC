@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201701201018293_sottomenupos.Designer.cs">
       <DependentUpon>201701201018293_sottomenupos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701231448327_documenti.cs" />
+    <Compile Include="Migrations\201701231448327_documenti.Designer.cs">
+      <DependentUpon>201701231448327_documenti.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -540,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701201018293_sottomenupos.resx">
       <DependentUpon>201701201018293_sottomenupos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701231448327_documenti.resx">
+      <DependentUpon>201701231448327_documenti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
