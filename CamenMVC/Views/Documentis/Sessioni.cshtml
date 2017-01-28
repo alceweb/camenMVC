@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+<h2>Sezione documenti</h2>
+<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
+<a href="@Url.Action("Eventi", "Documentis", new {id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"] })" class="label label-primary">Eventi</a>
+<a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
+        cat = Request.QueryString["cat"],
+        evento = Request.QueryString["evento"],
+        eve = Request.QueryString["eve"],
+        linea = Request.QueryString["linea"],
+        lin = Request.QueryString["lin"]
+    })" class="label label-primary">Aree</a>
+<label class="label label-success">Sessioni</label>
+<table class="table table-hover">
+    <tr>
+        <th>
+            <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"] - @Request.QueryString["lin"]</div>
+
+        </th>
+    </tr>
+    @foreach (var group in Model.GroupBy(item => item.Sessione))
+    {
+        <tr>
+            <td class="h4">
+                <a href="@Url.Action("Docpdf", "Documentis", new {
+                    id = @group.Key.Sessione_Id,
+                    categoria = Request.QueryString["categoria"],
+                    cat = Request.QueryString["cat"],
+                    evento = Request.QueryString["evento"],
+                    eve = Request.QueryString["eve"],
+                    linea = Request.QueryString["linea"],
+                    lin = Request.QueryString["lin"],
+                    sessione = @group.Key.Sessione_Id,
+                    ses = @group.Key.Sessione
+                })"
+                   })" aria-expanded="false">
+                    @group.Key.Sessione
+                </a>
+            </td>
+        </tr>
+
+    }
+</table>

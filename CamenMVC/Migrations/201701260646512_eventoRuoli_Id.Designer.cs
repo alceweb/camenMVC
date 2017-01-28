@@ -7,13 +7,13 @@ namespace CamenMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class documenti : IMigrationMetadata
+    public sealed partial class eventoRuoli_Id : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(documenti));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(eventoRuoli_Id));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701231448327_documenti"; }
+            get { return "201701260646512_eventoRuoli_Id"; }
         }
         
         string IMigrationMetadata.Source

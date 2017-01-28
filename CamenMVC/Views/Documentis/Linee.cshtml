@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+<h2>Sezione documenti</h2>
+@*Inizio menu orizzontale docymenti*@
+<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
+<a href="@Url.Action("Eventi", "Documentis", new {id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"], cat = Request.QueryString["cat"] })" class="label label-primary"> Eventi</a>
+<label class="label label-success">Aree</label>
+<table class="table table-hover">
+    <tr>
+        <th>
+            <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"]</div>
+        </th>
+    </tr>
+    @foreach (var group in Model.GroupBy(item => item.Linea))
+            {
+        <tr>
+            <td class="h4">
+                <a href="@Url.Action("Sessioni", "Documentis", new {
+                    id = @group.Key.Linea_Id,
+                    categoria = Request.QueryString["categoria"],
+                    cat = Request.QueryString["cat"],
+                    evento = Request.QueryString["evento"],
+                    eve = Request.QueryString["eve"],
+                    linea = @group.Key.Linea_Id,
+                    lin = @group.Key.Linea
+                })"
+                   })" aria-expanded="false">
+                    @group.Key.Linea
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+

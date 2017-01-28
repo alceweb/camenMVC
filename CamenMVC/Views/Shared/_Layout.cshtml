@@ -102,6 +102,9 @@
                             <li>
                                 <a class="glyphicon glyphicon-plus" href="@Url.Action("Create", "Menus")"></a>
                             </li>
+                            <li>
+                                <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
+                            </li>
                         }
                         else
                         {
@@ -154,7 +157,7 @@
                             }
                             if (User.IsInRole("Segreteria"))
                             {
-                                //Inizio barra sottomenu insegnante
+                                //Inizio barra menu segreteria
                                 var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Segreteria").OrderBy(n => n.Posizione).ToList();
                                 foreach (var item in menu)
                                 {
@@ -175,6 +178,9 @@
                                     </li>
                                 }
                             }
+                            <li>
+                                <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
+                            </li>
                         }
                     </ul>
                 }
@@ -182,7 +188,7 @@
                @*Inizio barra sottomenu utenti anonimi*@
                 else
                 {
-                    var menu1 = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Anonimous").OrderBy(n => n.Posizione).ToList();
+                    var menu1 = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && (n.Ruolo == "Anonimous" | n.Ruolo == null)).OrderBy(n => n.Posizione).ToList();
                    <ul class="nav navbar-nav btn-group">
                         @foreach (var item in menu1)
                         {
@@ -202,6 +208,9 @@
                                 </ul>
                             </li>
                         }
+                           <li>
+                           <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
+                           </li>
                     </ul>
                 }
 
@@ -213,7 +222,7 @@
     </div>
 }
 
-@*Inizio barra amministratore bottom - gestione utenti ruoli menu splash*@
+@*Inizio barra amministratore bottom - gestione utenti ruoli menu splash documenti*@
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <div class="navbar navbar-inverse navbar-fixed-bottom navi">
@@ -228,7 +237,8 @@
                     <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
                     <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
                     <li><div><a href="@Url.Action("Index", "Menus")" class="glyphicon glyphicon-option-horizontal"><span>Gestione menu</span></a></div></li>
-                    <li><div><a href="@Url.Action("Index", "Splashes")" class="glyphicon glyphicon-credit-card"><span>Gestione Splash</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Splashes")" class="glyphicon glyphicon-credit-card"><span>Gestione splash</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Documentis")" class="fa fa-file-pdf-o"><span>Gestione documenti</span></a></div></li>
                </ul>
             </div>
         </div>

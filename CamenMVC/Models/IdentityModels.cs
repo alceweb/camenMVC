@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CamenMVC.Models
 {
@@ -100,43 +101,90 @@ namespace CamenMVC.Models
         public DateTime DataF { get; set; }
     }
 
-    public class Documenti
+    public class Categorie
     {
         [Key]
-        public int Documenti_Id { get; set; }
-        [Display(Name = "Titolo documento")]
-        public string Titolo { get; set; }
-        [Display(Name = "Sotto titolo documento")]
-        public string SottoTitolo { get; set; }
-
-        [Display(Name ="Evento")]
-        public int Evento { get; set; }
-        public virtual Eventi NomeEvento { get; set; }
-
-        [Display(Name = "Descrizione")]
-        public string Descrizione { get; set; }
-
+        public int Categoria_Id { get; set; }
+        [Display(Name = "Categoria")]
+        public string Categoria { get; set; }
+        public virtual ICollection<Documenti> Documentis { get; set; }
     }
-
     public class Eventi
     {
         [Key]
         public int Evento_Id { get; set; }
-        [Display(Name ="Nome Evento")]
-        public string NomeEvento { get; set; }
+        [Display(Name = "Evento")]
+        public string Evento { get; set; }
+    }
+    public class Linee
+    {
+        [Key]
+        public int Linea_Id { get; set; }
+        [Display(Name = "Linea")]
+        public string Linea { get; set; }
+
+    }
+    public class Sessioni
+    {
+        [Key]
+        public int Sessione_Id { get; set; }
+        [Display(Name = "Sessione")]
+        public string Sessione { get; set; }
+
+    }
+
+    public class Documenti
+    {
+        [Key]
+        public int Documento_Id { get; set; }
+        [Display(Name = "Categoria")]
+        public int Categoria_Id { get; set; }
+        public virtual Categorie Categoria { get; set; }
+        [Display(Name = "Evento")]
+        public int Evento_Id { get; set; }
+        public virtual Eventi Evento { get; set; }
+        [Display(Name = "Linea")]
+        public int Linea_Id { get; set; }
+        public virtual Linee Linea { get; set; }
+        [Display(Name = "Sessione")]
+        public int Sessione_Id { get; set; }
+        public virtual Sessioni Sessione { get; set; }
+        [Display(Name ="Oratore")]
+        public string Oratore { get; set; }
+        [Display(Name="Titolo")]
+        public string Titolo { get; set; }
+        [Display(Name ="Data di pubblicazione")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Data { get; set; }
+        [Display(Name ="Riferimento")]
+        public string Riferimento { get; set; }
+        [Display(Name ="Lingua")]
+        public string Lingua { get; set; }
+        [Display(Name = "Nome file")]
+        [Required]
+        public string NomeFile { get; set; }
+        public virtual ICollection<DocRuoli> DocRuolis { get; set; }
     }
 
     public class DocRuoli
     {
         [Key]
         public int DocRuoli_Id { get; set; }
-        public string RoleId { get; set; }
-        public virtual ApplicationRoleManager Id { get; set; }
-        public int Documenti_Id { get; set; }
-        public virtual Documenti  Titolo { get; set; }
+        public int Documento_Id { get; set; }
+        public virtual Documenti Documento { get; set; }
+        public string RuoloId { get; set; }
 
     }
-
+    public class EventiRuoli
+    {
+        [Key]
+        public int EventoRuoliId { get; set; }
+        public int Evento_Id { get; set; }
+        public virtual Eventi Evento { get; set; }
+        public string RuoloId { get; set; }
+        
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -153,8 +201,12 @@ namespace CamenMVC.Models
         public DbSet<Pagina> Paginas { get; set; }
         public DbSet<MenuRuoli> MenuRuolis { get; set; }
         public DbSet<Splash> Splashs { get; set; }
-        public DbSet<Documenti> Documentis { get; set; }
-        public DbSet<DocRuoli> DocRuolis { get; set; }
+        public DbSet<Categorie> Categories { get; set; }
         public DbSet<Eventi> Eventis { get; set; }
+        public DbSet<Linee> Linees { get; set; }
+        public DbSet<Sessioni> Sessionis { get; set; }
+        public DbSet<Documenti> Documentis { get; set; }
+        public DbSet<EventiRuoli> EventiRuolis { get; set; }
+        public DbSet<DocRuoli> DocRuolis { get; set; }
     }
 }

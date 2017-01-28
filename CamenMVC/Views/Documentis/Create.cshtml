@@ -1,0 +1,111 @@
+﻿@model CamenMVC.Models.Documenti
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Documentis", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Documenti</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categoria_Id, "Categoria_Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <a href="@Url.Action("Create", "Categories")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+                @Html.DropDownList("Categoria_Id", null, "Seleziona categoria", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Categoria_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Evento_Id, "Evento_Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <a href="@Url.Action("Create", "Eventis")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+                @Html.DropDownList("Evento_Id", null, "Seleziona evento", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Evento_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Linea_Id, "Linea_Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <a href="@Url.Action("Create", "Linees")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+                @Html.DropDownList("Linea_Id", null, "Seleziona linea", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Linea_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sessione_Id, "Sessione_Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <a href="@Url.Action("Create", "Sessionis")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+                @Html.DropDownList("Sessione_Id", null, "Seleziona sessione", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Sessione_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Oratore, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Oratore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Oratore, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titolo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Riferimento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Riferimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Riferimento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lingua, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lingua, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lingua, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NomeFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="NomeFile" id="NomeFile" />
+                @*@Html.EditorFor(model => model.NomeFile, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.NomeFile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

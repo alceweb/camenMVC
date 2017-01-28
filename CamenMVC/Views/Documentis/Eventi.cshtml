@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+<h2>Sezione documenti</h2>
+<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
+<label class="label label-success">Eventi</label>
+<table class="table table-hover">
+    <tr>
+        <th>
+            <div class="badge">@Request.QueryString["cat"]</div>
+
+        </th>
+    </tr>
+    @foreach (var group in Model.GroupBy(item => item.Evento))
+            {
+        <tr>
+            <td class="h4">
+                <a href="@Url.Action("Linee", "Documentis", new {
+                    id = @group.Key.Evento_Id,
+                    categoria = Request.QueryString["categoria"],
+                    cat = Request.QueryString["cat"],
+                    evento = @group.Key.Evento_Id,
+                    eve = @group.Key.Evento
+                })"
+                   aria-expanded="false">
+                    @group.Key.Evento
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+
+@{
+    ViewBag.Title = "Gestione documenti";
+}
+<h2>@ViewBag.Title</h2>
+<div class="pull-right">
+    @Html.ActionLink("Categorie", "Index", "Categories", null, new {@class="badge" })
+    @Html.ActionLink("Eventi", "Index", "Eventis", null, new { @class = "badge" })
+    @Html.ActionLink("Aree", "Index", "Linees", null, new { @class = "badge" })
+    @Html.ActionLink("Sessioni", "Index", "Sessionis", null, new { @class = "badge" })
+</div>
+<div class="row">
+    <div class="col col-md-8">
+        <a href="@Url.Action("Create", "Documentis")" class="btn btn-primary"><span class="badge">@ViewBag.DocumentisCount</span> Nuovo</a>
+    </div>
+</div>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Evento.Evento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Linea.Linea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sessione.Sessione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oratore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Riferimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lingua)
+        </th>
+        <th>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria.Categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Evento.Evento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Linea.Linea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sessione.Sessione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Oratore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @item.Data.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Riferimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lingua)
+        </td>
+        <td>
+            <a href="@Url.Content("~/Content/Documenti/" + item.NomeFile)" class="fa fa-download" title="Download" target="_blank">
+                @Html.DisplayFor(modelItem => item.NomeFile)
+            </a>
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id=item.Documento_Id }, new {@class= "btn btn-xs btn-success glyphicon glyphicon-pencil", title="Modifica" })
+            @Html.ActionLink(" ", "Details", new { id=item.Documento_Id }, new { @class = "btn btn-xs btn-primary glyphicon glyphicon-th-list", title="Dettagli" })
+            @Html.ActionLink(" ", "Delete", new { id=item.Documento_Id, nomefile = item.NomeFile }, new { @class = "btn btn-xs btn-danger glyphicon glyphicon-remove", title = "Elimina" })
+        </td>
+    </tr>
+}
+
+</table>

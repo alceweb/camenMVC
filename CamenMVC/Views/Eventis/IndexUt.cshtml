@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CamenMVC.Models.Eventi>
+
+@{
+    ViewBag.Title = "Eventi";
+}
+
+<h2>Sezione documenti</h2>
+<h3>@ViewBag.Title</h3>
+
+    @foreach (var item in Model)
+    {
+                <h2><span class="btn btn-primary">@item.Evento</span></h2>
+    }
+
+

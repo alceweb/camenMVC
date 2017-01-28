@@ -1,0 +1,102 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+@using Microsoft.AspNet.Identity
+
+<h2>Sezione documenti</h2>
+<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
+<a href="@Url.Action("Eventi", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"] })" class="label label-primary">Eventi</a>
+<a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"], cat = Request.QueryString["cat"],
+        evento = Request.QueryString["evento"],
+        eve = Request.QueryString["eve"],
+        linea = Request.QueryString["linea"],
+        lin = Request.QueryString["lin"]
+    })" class="label label-primary">Aree</a>
+<a href="@Url.Action("Sessioni", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
+        cat = Request.QueryString["cat"],
+        evento = Request.QueryString["evento"],
+        eve = Request.QueryString["eve"],
+        linea = Request.QueryString["linea"],
+        lin = Request.QueryString["lin"],
+        sessione = Request.QueryString["sessione"],
+        ses = Request.QueryString["ses"]
+    })" class="label label-primary">Sessioni</a>
+
+<label class="label label-success">Files</label>
+
+<table class="table table-hover">
+        <tr>
+            <th>
+                <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"] - @Request.QueryString["lin"] - @Request.QueryString["ses"]</div>
+
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+       </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Oratore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Riferimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lingua)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Oratore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @item.Data.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Riferimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lingua)
+        </td>
+        <td>
+            @if (item.DocRuolis.Where(r=>r.Documento_Id == item.Documento_Id).Count() > 0)
+            {
+                foreach (var itemr in item.DocRuolis.Where(r=>r.Documento_Id == item.Documento_Id))
+                {
+                    if (User.IsInRole(itemr.RuoloId))
+                    {
+                        <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"> @itemr.RuoloId</span></a>
+                    }
+                }
+            }
+            else
+            {
+                <a class="fa fa-ban fa-2x text-danger" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <div class="well">
+                        Il download di questo file è riservato ad utenti registrati e appartenenti ad uno specifico ruolo. Se sei interessato alla visualizzazione del documento contattaci...
+                    </div>
+                </div>
+            }
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    
+</div>

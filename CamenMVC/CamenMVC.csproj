@@ -168,12 +168,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DocumentisController.cs" />
+    <Compile Include="Controllers\EventiRuolisController.cs" />
+    <Compile Include="Controllers\EventisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LineesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuRuolisController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\PaginasController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\SessionisController.cs" />
     <Compile Include="Controllers\SottoMenusController.cs" />
     <Compile Include="Controllers\SplashesController.cs" />
     <Compile Include="Controllers\UsersAdminController.cs" />
@@ -208,9 +214,21 @@
     <Compile Include="Migrations\201701201018293_sottomenupos.Designer.cs">
       <DependentUpon>201701201018293_sottomenupos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701231448327_documenti.cs" />
-    <Compile Include="Migrations\201701231448327_documenti.Designer.cs">
-      <DependentUpon>201701231448327_documenti.cs</DependentUpon>
+    <Compile Include="Migrations\201701250856562_documenti.cs" />
+    <Compile Include="Migrations\201701250856562_documenti.Designer.cs">
+      <DependentUpon>201701250856562_documenti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701260646512_eventoRuoli_Id.cs" />
+    <Compile Include="Migrations\201701260646512_eventoRuoli_Id.Designer.cs">
+      <DependentUpon>201701260646512_eventoRuoli_Id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701261824583_nomefilenotnull.cs" />
+    <Compile Include="Migrations\201701261824583_nomefilenotnull.Designer.cs">
+      <DependentUpon>201701261824583_nomefilenotnull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701270821404_docruoli.cs" />
+    <Compile Include="Migrations\201701270821404_docruoli.Designer.cs">
+      <DependentUpon>201701270821404_docruoli.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,7 +258,10 @@
     <Content Include="Content\Immagini\LogoHeaderBianco.png" />
     <Content Include="Content\Immagini\LogoNewTrasp.png" />
     <Content Include="Content\Immagini\Slice.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -335,6 +356,11 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\ArubaBusiness.pubxml" />
     <None Include="Properties\PublishProfiles\camenmvc - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\camenmvc - Web Deploy.pubxml" />
@@ -503,11 +529,6 @@
     <Content Include="Views\Paginas\IndexUt.cshtml" />
     <Content Include="Views\SottoMenus\IndexAdm.cshtml" />
     <Content Include="Views\SottoMenus\Create1.cshtml" />
-    <Content Include="Views\MenuRuolis\Create.cshtml" />
-    <Content Include="Views\MenuRuolis\Delete.cshtml" />
-    <Content Include="Views\MenuRuolis\Details.cshtml" />
-    <Content Include="Views\MenuRuolis\Edit.cshtml" />
-    <Content Include="Views\MenuRuolis\Index.cshtml" />
     <Content Include="Views\Menus\EditR.cshtml" />
     <Content Include="Views\Paginas\CreateAd.cshtml" />
     <Content Include="Views\Splashes\Create.cshtml" />
@@ -515,9 +536,41 @@
     <Content Include="Views\Splashes\Details.cshtml" />
     <Content Include="Views\Splashes\Edit.cshtml" />
     <Content Include="Views\Splashes\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Eventis\Create.cshtml" />
+    <Content Include="Views\Eventis\Delete.cshtml" />
+    <Content Include="Views\Eventis\Details.cshtml" />
+    <Content Include="Views\Eventis\Edit.cshtml" />
+    <Content Include="Views\Eventis\Index.cshtml" />
+    <Content Include="Views\Linees\Create.cshtml" />
+    <Content Include="Views\Linees\Delete.cshtml" />
+    <Content Include="Views\Linees\Details.cshtml" />
+    <Content Include="Views\Linees\Edit.cshtml" />
+    <Content Include="Views\Linees\Index.cshtml" />
+    <Content Include="Views\Sessionis\Create.cshtml" />
+    <Content Include="Views\Sessionis\Delete.cshtml" />
+    <Content Include="Views\Sessionis\Details.cshtml" />
+    <Content Include="Views\Sessionis\Edit.cshtml" />
+    <Content Include="Views\Sessionis\Index.cshtml" />
+    <Content Include="Views\Documentis\Create.cshtml" />
+    <Content Include="Views\Documentis\Delete.cshtml" />
+    <Content Include="Views\Documentis\Details.cshtml" />
+    <Content Include="Views\Documentis\Edit.cshtml" />
+    <Content Include="Views\Documentis\Index.cshtml" />
+    <Content Include="Views\Eventis\IndexUt.cshtml" />
+    <Content Include="Views\Documentis\IndexUt.cshtml" />
+    <Content Include="Views\Documentis\Eventi.cshtml" />
+    <Content Include="Views\Documentis\Linee.cshtml" />
+    <Content Include="Views\Documentis\Sessioni.cshtml" />
+    <Content Include="Views\Documentis\Docpdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Documenti\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -545,8 +598,17 @@
     <EmbeddedResource Include="Migrations\201701201018293_sottomenupos.resx">
       <DependentUpon>201701201018293_sottomenupos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701231448327_documenti.resx">
-      <DependentUpon>201701231448327_documenti.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701250856562_documenti.resx">
+      <DependentUpon>201701250856562_documenti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701260646512_eventoRuoli_Id.resx">
+      <DependentUpon>201701260646512_eventoRuoli_Id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701261824583_nomefilenotnull.resx">
+      <DependentUpon>201701261824583_nomefilenotnull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701270821404_docruoli.resx">
+      <DependentUpon>201701270821404_docruoli.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

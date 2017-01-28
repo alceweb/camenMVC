@@ -1,0 +1,35 @@
+﻿@model CamenMVC.Models.Eventi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Eventi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Evento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Evento)
+        </dd>
+        <dt>
+            Ruoli attivi
+        </dt>
+        <dd>
+            @foreach (var item in ViewBag.EventoRuoli)
+            {
+                <span class="badge">@item.RuoloId</span>
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Evento_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

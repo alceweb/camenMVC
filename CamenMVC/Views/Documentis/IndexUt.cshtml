@@ -1,0 +1,156 @@
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+@using Microsoft.AspNet.Identity
+
+<h2>Sezione documenti</h2>
+<input id="btncerca" type="button" class="btn btn-primary" value="Ricerca per categorie" />
+<input id="btnfiltro" type="button" class="btn btn-primary" value="Ricerca globale" />
+@*Inizio Rierca per categoria*@
+<table id="cerca" class="table table-hover">
+
+    @foreach (var group in Model.GroupBy(item => item.Categoria))
+    {
+        <tr>
+            <td class="h3">
+
+                <a href="@Url.Action("Eventi", "Documentis", new {id = @group.Key.Categoria_Id, categoria = @group.Key.Categoria_Id, cat = @group.Key.Categoria })" aria-expanded="false">
+                    @group.Key.Categoria
+                </a>
+            </td>
+       </tr>
+
+    }
+</table>
+@*Fine Ricerca per categoria*@
+
+@*Inizio Ricerca globale*@
+<div id="filtro">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categoria.Categoria)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Evento.Evento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Linea.Linea)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sessione.Sessione)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Oratore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Titolo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Data)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Riferimento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lingua)
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tr>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Evento.Evento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Linea.Linea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sessione.Sessione)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Oratore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titolo)
+                    </td>
+                    <td>
+                        @item.Data.ToString("dd-MMM-yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Riferimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lingua)
+                    </td>
+                    <td>
+                        @*pulsante download filtrato dai ruolo*@
+                        @if (item.DocRuolis.Count() > 0)
+                        {
+                            foreach (var itemr in item.DocRuolis.Where(r => r.Documento_Id == item.Documento_Id))
+                            {
+                                if (User.IsInRole(itemr.RuoloId))
+                                {
+                                    <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"> @itemr.RuoloId</span></a>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <a class="fa fa-ban fa-2x text-danger" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            </a>
+                            <div class="collapse" id="collapseExample">
+                                <div class="well">
+                                    Il download di questo file è riservato ad utenti registrati e appartenenti ad uno specifico ruolo. Se sei interessato alla visualizzazione del documento contattaci...
+                                </div>
+                            </div>
+                        }
+                        @*fine pulsante download filtrato dai ruoli*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <div>@Html.Action("Login", "Account")</div>
+    }
+
+    </div>
+
+@*Fine ricerca globale*@
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#cerca').show();
+            $('#btnfiltro').show();
+            $('#btncerca').hide();
+            $('#filtro').hide();
+        })
+        $('#btncerca').click(function () {
+            $('#cerca').show();
+            $('#filtro').hide();
+            $('#btnfiltro').show();
+            $(this).hide();
+        });
+        $('#btnfiltro').click(function () {
+            $('#cerca').hide();
+            $('#filtro').show();
+            $('#btncerca').show();
+            $(this).hide();
+        })
+    </script>
+
+}
