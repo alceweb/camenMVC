@@ -23,6 +23,14 @@
                 @Html.ValidationMessageFor(model => model.Smenu_Id, "", new { @class = "text-danger" })
             </div>
         </div>
+         
+        <div class="form-group">
+            @Html.LabelFor(model => model.Posizione, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Posizione, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.Posizione, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Contenuo, htmlAttributes: new { @class = "control-label col-md-2" })

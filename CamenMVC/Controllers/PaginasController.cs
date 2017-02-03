@@ -19,7 +19,7 @@ namespace CamenMVC.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var paginas = db.Paginas.Include(p => p.TestoSmenu).OrderBy(p=>p.TestoSmenu.TestoSmenu);
+            var paginas = db.Paginas.Include(p => p.TestoSmenu).OrderBy(p=>p.Posizione);
             return View(paginas.ToList());
         }
 
@@ -33,7 +33,7 @@ namespace CamenMVC.Controllers
             ViewBag.Intestazione = intestazione;
             var smenuId = db.SottoMenus.Where(s => s.Smenu_Id == id).Select(s => s.Smenu_Id);
             ViewBag.SmenuId = smenuId;
-            var pagina = db.Paginas.Where(p => p.Smenu_Id == id).ToList();
+            var pagina = db.Paginas.OrderBy(p=>p.Posizione).Where(p => p.Smenu_Id == id).ToList();
             //Pagina pagina = db.Paginas.Find(id);
             if (pagina == null)
             {
@@ -71,7 +71,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Pagina_Id,Smenu_Id", Exclude ="Contenuo")] Pagina pagina)
+        public ActionResult Create([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude ="Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];
@@ -96,7 +96,7 @@ namespace CamenMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAd([Bind(Include = "Pagina_Id,Smenu_Id", Exclude = "Contenuo")] Pagina pagina)
+        public ActionResult CreateAd([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude = "Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];
@@ -135,7 +135,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Pagina_Id,Smenu_Id", Exclude ="Contenuo")] Pagina pagina)
+        public ActionResult Edit([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude ="Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];

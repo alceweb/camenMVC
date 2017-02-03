@@ -23,15 +23,25 @@
 </head>
 <body>
 @{
-    ApplicationDbContext db = new ApplicationDbContext();
-    var cl = "";
-    if (User.IsInRole("Admin"))
-    {
-        cl = "navbar navbar-inverse navi1";
-    }
-    else
-    {
-        cl = "navbar navbar-fixed-top navbar-inverse navi1";
+        ApplicationDbContext db = new ApplicationDbContext();
+        //formattazione del menu per amministratore -ABBADONATO PER PROBLEMI DI SOVRAPPOSIZIONE DEL MENU CON LE PAGINE""
+        var cl = "";
+        if (User.IsInRole("Admin"))
+        {
+            cl = "navbar navbar-inverse navi1";
+        }
+        else
+        {
+            cl = "navbar navbar-inverse navi1";
+        }
+        //Menu per documenti riservati sulla destra
+        if (User.Identity.IsAuthenticated)
+        {
+        <div>
+            <a href="@Url.Action("IndexUt", "Documentis")" class="docu" title="Biblioteca documenti riservati">
+                <img src="~/Content/Immagini/biblioteca.png" />
+            </a>
+        </div>
     }
 
     <div class="@cl">
@@ -46,156 +56,170 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <ul class="nav navbar-nav btn-group">
+                <ul class="nav navbar-nav btn-group">
+                    @if (User.Identity.IsAuthenticated)
+                    {
 
                         @*Inizio gruppo menu autenticati*@
-                        @if (User.IsInRole("Admin"))
+                    if (User.IsInRole("Admin"))
+                    {
+                        //Inizio barra menu amministratore
+                        var menu = db.Menus.OrderBy(n => n.Posizione).ToList();
+                        foreach (var item in menu)
                         {
-                            //Inizio barra menu amministratore
-                            var menu = db.Menus.OrderBy(n => n.Posizione).ToList();
+                            <li>
+                                <span>
+                                    @*Se non esistono sottomenu abilito il tasto elimina*@
+                                    @if (item.SottoMenus.Count() == 0)
+                                    {
+                                        @Html.ActionLink(" ", "Delete", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-remove text-danger" })
+                                    }
+                                    @Html.ActionLink(" ", "Edit", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-pencil" })
+                                </span>
+                                @*Se il menu non è pubblicato lo scrivo in rosso*@
+                                @if (@item.Pubblica == true)
+                                {
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                }
+                                else
+                                {
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown"><b class="text-danger">@item.TestoMenu</b><b class="caret"></b></a>
+                                }
+                                @*Inizio barra sottomenu amministratore*@
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
+                                    {
+                                        if (item1.Pubblica == true)
+                                        {
+                                            <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu</a></li></c>
+
+                                        }
+                                        else
+                                        {
+                                            <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })"><b class="text-danger">@item1.TestoSmenu</b> </a></li></c>
+                                        }
+                                    }
+                                    <c>
+                                        <li>
+                                            <hr class="hr1" />
+                                            <a class="glyphicon glyphicon-plus" href="@Url.Action("Create1", "SottoMenus", new { menu = item.Menu_Id })"></a>
+                                        </li>
+                                    </c>
+                                </ul>
+                                @*Fine barra sottomenu amministratore*@
+                            </li>
+                        }
+                        <li>
+                            <a class="glyphicon glyphicon-plus" href="@Url.Action("Create", "Menus")"></a>
+                        </li>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("Insegnante"))
+                        {
+                            //Inizio barra menu insegnante
+                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Insegnante").OrderBy(n => n.Posizione).ToList();
                             foreach (var item in menu)
                             {
                                 <li>
-                                    <span>
-                                        @*Se non esistono sottomenu abilito il tasto elimina*@
-                                        @if (item.SottoMenus.Count() == 0)
-                                        {
-                                            @Html.ActionLink(" ", "Delete", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-remove text-danger" })
-                                        }
-                                        @Html.ActionLink(" ", "Edit", "Menus", new { id = item.Menu_Id }, new { @class = " glyphicon glyphicon-pencil" })
-                                    </span>
-                                    @*Se il menu non è pubblicato lo scrivo in rosso*@
-                                    @if (@item.Pubblica == true)
-                                    {
-                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                    }
-                                    else
-                                    {
-                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown"><b class="text-danger">@item.TestoMenu</b><b class="caret"></b></a>
-                                    }
-                                    @*Inizio barra sottomenu amministratore*@
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                    @*Inizio barra sottomenu insegnante*@
                                     <ul class="dropdown-menu" role="menu">
-                                        @foreach (var item1 in item.SottoMenus.OrderBy(o=>o.Posizione))
+                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
                                         {
                                             if (item1.Pubblica == true)
                                             {
-                                                <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu</a></li></c>
-
-                                            }
-                                            else
-                                            {
-                                                <c><li>@Html.ActionLink(" ", "Edit", "Sottomenus", new { id = item1.Smenu_Id }, new { @class = " glyphicon glyphicon-pencil" })<a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })"><b class="text-danger">@item1.TestoSmenu</b> </a></li></c>
+                                                <li>
+                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
+                                                </li>
                                             }
                                         }
-                                        <c>
-                                            <li>
-                                                <hr class="hr1" />
-                                                <a class="glyphicon glyphicon-plus" href="@Url.Action("Create1", "SottoMenus", new { menu = item.Menu_Id })"></a>
-                                            </li>
-                                        </c>
                                     </ul>
-                                    @*Fine barra sottomenu amministratore*@
                                 </li>
                             }
-                            <li>
-                                <a class="glyphicon glyphicon-plus" href="@Url.Action("Create", "Menus")"></a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
-                            </li>
                         }
-                        else
+                        if (User.IsInRole("Studente"))
                         {
-
-                            if (User.IsInRole("Insegnante"))
+                            //Inizio barra menu studente
+                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Studente").OrderBy(n => n.Posizione).ToList();
+                            foreach (var item in menu)
                             {
-                                //Inizio barra menu insegnante
-                                var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Insegnante").OrderBy(n => n.Posizione).ToList();
-                                foreach (var item in menu)
-                                {
-                                    <li>
-                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                        @*Inizio barra sottomenu insegnante*@
-                                       <ul class="dropdown-menu" role="menu">
-                                            @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
+                                <li>
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                    @*Inizio barra sottomenu studente*@
+                                    <ul class="dropdown-menu" role="menu">
+                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
+                                        {
+                                            if (item1.Pubblica == true)
                                             {
-                                                if (item1.Pubblica == true)
-                                                {
-                                                    <li>
-                                                        <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                    </li>
-                                                }
+                                                <li>
+                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
+                                                </li>
                                             }
-                                        </ul>
-                                    </li>
-                                }
+                                        }
+                                    </ul>
+                                </li>
                             }
-                            if (User.IsInRole("Studente"))
-                            {
-                                //Inizio barra menu studente
-                                var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Studente").OrderBy(n => n.Posizione).ToList();
-                                foreach (var item in menu)
-                                {
-                                    <li>
-                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                        @*Inizio barra sottomenu studente*@
-                                       <ul class="dropdown-menu" role="menu">
-                                            @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                            {
-                                                if (item1.Pubblica == true)
-                                                {
-                                                    <li>
-                                                        <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                    </li>
-                                                }
-                                            }
-                                        </ul>
-                                    </li>
-                                }
-                            }
-                            if (User.IsInRole("Segreteria"))
-                            {
-                                //Inizio barra menu segreteria
-                                var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Segreteria").OrderBy(n => n.Posizione).ToList();
-                                foreach (var item in menu)
-                                {
-                                    <li>
-                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                        @*Inizio barra sottomenu segreteria*@
-                                       <ul class="dropdown-menu" role="menu">
-                                            @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                            {
-                                                if (item1.Pubblica == true)
-                                                {
-                                                    <li>
-                                                        <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                    </li>
-                                                }
-                                            }
-                                        </ul>
-                                    </li>
-                                }
-                            }
-                            <li>
-                                <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
-                            </li>
                         }
-                    </ul>
-                }
-               @*Fine gruppo menu autenticati*@
-               @*Inizio barra sottomenu utenti anonimi*@
-                else
-                {
-                    var menu1 = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && (n.Ruolo == "Anonimous" | n.Ruolo == null)).OrderBy(n => n.Posizione).ToList();
-                   <ul class="nav navbar-nav btn-group">
-                        @foreach (var item in menu1)
+                        if (User.IsInRole("Socio"))
+                        {
+                            //Inizio barra menu segreteria
+                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "socio").OrderBy(n => n.Posizione).ToList();
+                            foreach (var item in menu)
+                            {
+                                <li>
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                    @*Inizio barra sottomenu segreteria*@
+                                    <ul class="dropdown-menu" role="menu">
+                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
+                                        {
+                                            if (item1.Pubblica == true)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        if (User.IsInRole("Congressi"))
+                        {
+                            //Inizio barra menu segreteria
+                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Congressi").OrderBy(n => n.Posizione).ToList();
+                            foreach (var item in menu)
+                            {
+                                <li>
+                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                    @*Inizio barra sottomenu segreteria*@
+                                    <ul class="dropdown-menu" role="menu">
+                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
+                                        {
+                                            if (item1.Pubblica == true)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                                }
+                            }
+                        }
+                    }
+                    @*Fine gruppo menu autenticati*@
+                    @*Inizio barra menu utenti anonimi*@
+                    else
+                    {
+                        var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && (n.Ruolo == "Anonimous")).OrderBy(n => n.Posizione).ToList();
+                        foreach (var item in menu)
                         {
                             <li>
                                 <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                @*Inizio barra sottomenu anonimo*@
-                               <ul class="dropdown-menu" role="menu">
+                                @*Inizio barra sottomenu utenti anonimi*@
+                                <ul class="dropdown-menu" role="menu">
                                     @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
                                     {
                                         if (item1.Pubblica == true)
@@ -208,16 +232,13 @@
                                 </ul>
                             </li>
                         }
-                           <li>
-                           <a href="@Url.Action("IndexUt", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
-                           </li>
-                    </ul>
-                }
-
-
-
+                    }
+                    <li>
+                        <a href="@Url.Action("IndexAn", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
+                    </li>
                     @*Fine barra menu utenti anonimi*@
-</div>
+                </ul>
+            </div>
         </div>
     </div>
 }

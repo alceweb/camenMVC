@@ -42,7 +42,7 @@
             <div class="collapse" id="@item.Menu_Id">
                 <div class="well well-sm">
                     <table class="table table-hover">
-                        @foreach (var item1 in item.SottoMenus)
+                        @foreach (var item1 in item.SottoMenus.OrderBy(s=>s.Posizione))
                     {
                             <tr>
                                 <td>
@@ -58,7 +58,7 @@
                                     }
                                     else
                                     {
-                                    <span class="badge">@item1.Paginas.Count()</span>
+                                    <span class="badge">@item1.Paginas.Count() pag.</span>
                                     }
 
                                 </td>

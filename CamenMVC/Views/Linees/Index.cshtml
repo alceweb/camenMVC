@@ -1,33 +1,41 @@
 ﻿@model IEnumerable<CamenMVC.Models.Linee>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Aree";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Linea)
-        </th>
-        <th></th>
-    </tr>
-
+<table class="table table-hover">
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Linea)
+            @Html.ActionLink(@item.Linea, "Edit", new { id = item.Linea_Id }, new { @class = "glyphicon glyphicon-pencil" })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Linea_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Linea_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Linea_Id })
+            @if (item.Documentis.Count > 0)
+            {
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#@item.Linea_Id" aria-expanded="false" aria-controls="@item.Linea_Id">
+                    @item.Documentis.Count() collegamenti
+                </a>
+                <div class="collapse" id="@item.Linea_Id">
+                    <div class="well">
+                        @foreach (var item1 in item.Documentis)
+                        {
+                            <div><a href="@Url.Action("Edit", "Documentis", new {id = @item1.Documento_Id})"> @item1.NomeFile</a></div>
+                        }
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                @Html.ActionLink(" Elimina", "Delete", new { id = item.Linea_Id }, new { @class = "btn btn-xs btn-danger glyphicon glyphicon-remove" })
+
+            }
         </td>
     </tr>
 }
 
 </table>
+@Html.ActionLink("Fatto", "Index", "Documentis", null, new { @class = "btn btn-success" })

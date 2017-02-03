@@ -21,18 +21,25 @@
     })" class="label label-primary">Sessioni</a>
 
 <label class="label label-success">Files</label>
-
 <table class="table table-hover">
         <tr>
-            <th>
+            <th colspan="4">
                 <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"] - @Request.QueryString["lin"] - @Request.QueryString["ses"]</div>
-
             </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th colspan="3">
+                <h4 class="label label-info pull-right">
+                    Puoi scaricare solo i file con l'icona <span class="fa fa-download"></span> download
+                    <a class="fa fa-info-circle" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    </a>
+                </h4>
+                <div class="collapse" id="collapseExample">
+                    <div class="well">
+                        Il download di alcuni files è riservato ad utenti con specifica autorizzazione.
+                        Se sei interessato al documento, contattaci compilando l'apposito Form nel menù "Contatti - Segreteria".<br />
+                        If you are interested in this document, please contact us filling in the Form you'll find in the menù tab "Contatti - Segreteria".
+                    </div>
+                </div>
+            </th>
        </tr>
     <tr>
         <th>
@@ -42,6 +49,9 @@
             @Html.DisplayNameFor(model => model.Titolo)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+       <th>
             @Html.DisplayNameFor(model => model.Data)
         </th>
         <th>
@@ -54,13 +64,17 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Oratore)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
         </td>
         <td>
             @item.Data.ToString("dd/MM/yyyy")
@@ -72,9 +86,9 @@
             @Html.DisplayFor(modelItem => item.Lingua)
         </td>
         <td>
-            @if (item.DocRuolis.Where(r=>r.Documento_Id == item.Documento_Id).Count() > 0)
+            @if (item.DocRuolis.Where(r => r.Documento_Id == item.Documento_Id).Count() > 0)
             {
-                foreach (var itemr in item.DocRuolis.Where(r=>r.Documento_Id == item.Documento_Id))
+                foreach (var itemr in item.DocRuolis.Where(r => r.Documento_Id == item.Documento_Id))
                 {
                     if (User.IsInRole(itemr.RuoloId))
                     {
@@ -84,13 +98,6 @@
             }
             else
             {
-                <a class="fa fa-ban fa-2x text-danger" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="well">
-                        Il download di questo file è riservato ad utenti registrati e appartenenti ad uno specifico ruolo. Se sei interessato alla visualizzazione del documento contattaci...
-                    </div>
-                </div>
             }
         </td>
     </tr>

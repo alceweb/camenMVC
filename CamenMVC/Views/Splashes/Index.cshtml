@@ -35,10 +35,10 @@
             @Html.DisplayFor(modelItem => item.SottoTitolo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataI)
+            @item.DataI.ToString("dd MMM yyyy")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataF)
+            @item.DataF.ToString("dd MMM yyyy")
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Splash_Id }, new {@class="btn btn-xs btn-success" })

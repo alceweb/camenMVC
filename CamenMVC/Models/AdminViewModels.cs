@@ -60,7 +60,7 @@ namespace CamenMVC.Models
         [Display(Name = "Evento")]
         public int Evento_Id { get; set; }
         public virtual Eventi Evento { get; set; }
-        [Display(Name = "Linea")]
+        [Display(Name = "Area")]
         public int Linea_Id { get; set; }
         public virtual Linee Linea { get; set; }
         [Display(Name = "Sessione")]
@@ -70,6 +70,8 @@ namespace CamenMVC.Models
         public string Oratore { get; set; }
         [Display(Name = "Titolo")]
         public string Titolo { get; set; }
+        [Display(Name = "Descrizione")]
+        public string Descrizione { get; set; }
         [Display(Name = "Data di pubblicazione")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

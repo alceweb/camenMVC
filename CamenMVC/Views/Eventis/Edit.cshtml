@@ -1,17 +1,17 @@
-﻿@model CamenMVC.Models.EditEventiViewModel
+﻿@model CamenMVC.Models.Eventi
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Evento modifica";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Eventi</h4>
+        <h4>Categorie</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Evento_Id)
@@ -23,22 +23,6 @@
                 @Html.ValidationMessageFor(model => model.Evento, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                @Html.Label("Roles", new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @foreach (var item in Model.RolesList)
-                {
-                        <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
-                                @Html.Label(item.Value, new { @class = "control-label" })<br />
-
-                    }
-                </div>
-
-
-            </div>
-        </div>
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

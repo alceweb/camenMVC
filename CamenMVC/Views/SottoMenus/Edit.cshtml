@@ -62,7 +62,7 @@
 <h3><span class="badge">@Model.Paginas.Count()</span> Pagine agganciate al sottomenu</h3>
 <table class="table table-hover">
     
-    @foreach (var item in Model.Paginas)
+    @foreach (var item in Model.Paginas.OrderBy(p=>p.Posizione))
     {
         <tr>
             <td>
@@ -72,7 +72,7 @@
                 <a href="@Url.Action("Delete","Paginas", new {id = item.Pagina_Id, sm = Model.Smenu_Id })" class="glyphicon glyphicon-remove text-danger" title="Cancella pagina"></a>
             </td>
             <td>
-                <span>@item.TestoSmenu.TestoSmenu Codice pagina: @item.Pagina_Id </span>
+                <span> @Html.Raw(item.Contenuo)</span>
             </td>
         </tr>
     }

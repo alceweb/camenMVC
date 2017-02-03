@@ -17,6 +17,8 @@ namespace CamenMVC.Controllers
         // GET: Linees
         public ActionResult Index()
         {
+            var doc = db.Documentis.ToList();
+            ViewBag.Doc = doc;
             return View(db.Linees.ToList());
         }
 
@@ -52,7 +54,7 @@ namespace CamenMVC.Controllers
             {
                 db.Linees.Add(linee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Documentis");
             }
 
             return View(linee);

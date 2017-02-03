@@ -7,7 +7,7 @@
     padding-left: 15px;
     padding-right: 15px;
     padding-top:40px;
-    padding-bottom:10px;
+    padding-bottom:20px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -236,4 +236,21 @@ textarea {
 .foot img{
     margin: 0px 10px 0px 10px;
 }
-
+.docu{
+    position:fixed;
+    bottom:50%;
+    right:-70px;
+    transition: all ease 1s;
+}
+.docu img{
+    opacity:0.5;
+    right:-180px;
+    transition: all ease 1s;
+    height:200px
+}
+.docu img:hover {
+    right:0px;
+    opacity:1;
+    transform: translate(-3em,0);
+    right:0px;
+}

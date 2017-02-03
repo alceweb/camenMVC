@@ -17,6 +17,8 @@ namespace CamenMVC.Controllers
         // GET: Sessionis
         public ActionResult Index()
         {
+            var doc = db.Documentis.ToList();
+            ViewBag.Doc = doc;
             return View(db.Sessionis.ToList());
         }
 
@@ -52,7 +54,7 @@ namespace CamenMVC.Controllers
             {
                 db.Sessionis.Add(sessioni);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Documentis");
             }
 
             return View(sessioni);

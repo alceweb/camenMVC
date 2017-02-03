@@ -18,6 +18,8 @@ namespace CamenMVC.Controllers
         // GET: Eventis
         public ActionResult Index()
         {
+            var doc = db.Documentis.ToList();
+            ViewBag.Doc = doc;
             return View(db.Eventis.ToList());
         }
 
@@ -61,7 +63,7 @@ namespace CamenMVC.Controllers
             {
                 db.Eventis.Add(eventi);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Documentis");
             }
 
             return View(eventi);
@@ -79,18 +81,7 @@ namespace CamenMVC.Controllers
             {
                 return HttpNotFound();
             }
-            var eventoRuoli = db.EventiRuolis.Where(e=>e.Evento_Id == id).Select(e=>e.RuoloId).ToList();
-            return View(new EditEventiViewModel()
-            {
-                Evento_Id = eventi.Evento_Id,
-                Evento = eventi.Evento,
-                RolesList = db.Roles.ToList().Select(x => new SelectListItem()
-                {
-                    Selected = eventoRuoli.Contains(x.Name),
-                    Text = x.Name,
-                    Value = x.Name
-                })
-            });
+            return View(eventi);
         }
 
         // POST: Eventis/Edit/5
@@ -98,41 +89,15 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, [Bind(Include = "EventoId,RuoloId")] EventiRuoli eventiRuoli, [Bind(Include = "Evento_Id,Evento")] EditEventiViewModel editEventi, params string[] selectedRole)
+        public ActionResult Edit([Bind(Include = "Evento_Id,Evento")] Eventi eventi)
         {
             if (ModelState.IsValid)
             {
-                Eventi eventi = db.Eventis.Find(editEventi.Evento_Id);
-                if (eventi == null)
-                {
-                    return HttpNotFound();
-                }
-                //Assegno i campi del modelview al db e li salvo
-                eventi.Evento_Id = editEventi.Evento_Id;
-                eventi.Evento = editEventi.Evento;
                 db.Entry(eventi).State = EntityState.Modified;
                 db.SaveChanges();
-                //Filtro eventoRuoli e cancello quelli relativi all'evento
-                var eventoRuoli = db.EventiRuolis.Where(e => e.Evento_Id == editEventi.Evento_Id).ToList();
-                foreach (var itemDel in eventoRuoli)
-                {
-                    EventiRuoli eventiRuoliDel = db.EventiRuolis.Find(itemDel.EventoRuoliId);
-                    db.EventiRuolis.Remove(eventiRuoliDel);
-                    db.SaveChanges();
-                }
-                //riscrivo i ruoli assegnati
-                selectedRole = selectedRole ?? new string[] { };
-                foreach (var item in selectedRole)
-                {
-                    eventiRuoli.Evento_Id = eventi.Evento_Id;
-                    eventiRuoli.RuoloId = item.ToString();
-                    db.EventiRuolis.Add(eventiRuoli);
-                    db.SaveChanges();
-                }
                 return RedirectToAction("Index");
             }
-            ModelState.AddModelError("", "Something failed.");
-            return View();
+            return View(eventi);
         }
 
         // GET: Eventis/Delete/5

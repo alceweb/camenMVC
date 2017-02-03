@@ -230,6 +230,14 @@
     <Compile Include="Migrations\201701270821404_docruoli.Designer.cs">
       <DependentUpon>201701270821404_docruoli.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701311603107_paginapos.cs" />
+    <Compile Include="Migrations\201701311603107_paginapos.Designer.cs">
+      <DependentUpon>201701311603107_paginapos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701311828485_Decsrizionedoc.cs" />
+    <Compile Include="Migrations\201701311828485_Decsrizionedoc.Designer.cs">
+      <DependentUpon>201701311828485_Decsrizionedoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -253,6 +261,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Immagini\biblioteca.png" />
     <Content Include="Content\Immagini\FotoIscritti\anonimous.jpg" />
     <Content Include="Content\Immagini\LogoHeader.png" />
     <Content Include="Content\Immagini\LogoHeaderBianco.png" />
@@ -567,6 +576,8 @@
     <Content Include="Views\Documentis\Linee.cshtml" />
     <Content Include="Views\Documentis\Sessioni.cshtml" />
     <Content Include="Views\Documentis\Docpdf.cshtml" />
+    <Content Include="Views\Shared\_LayoutDoc.cshtml" />
+    <Content Include="Views\Documentis\IndexAn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -609,6 +620,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701270821404_docruoli.resx">
       <DependentUpon>201701270821404_docruoli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311603107_paginapos.resx">
+      <DependentUpon>201701311603107_paginapos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311828485_Decsrizionedoc.resx">
+      <DependentUpon>201701311828485_Decsrizionedoc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

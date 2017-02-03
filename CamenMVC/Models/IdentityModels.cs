@@ -68,6 +68,8 @@ namespace CamenMVC.Models
         public virtual SottoMenu TestoSmenu { get; set; }
         [Display(Name ="Contenuto pagina")]
         public string Contenuo { get; set; }
+        [Display(Name = "Posizione")]
+        public int Posizione { get; set; }
 
     }
 
@@ -115,13 +117,15 @@ namespace CamenMVC.Models
         public int Evento_Id { get; set; }
         [Display(Name = "Evento")]
         public string Evento { get; set; }
+        public virtual ICollection<Documenti> Documentis { get; set; }
     }
     public class Linee
     {
         [Key]
         public int Linea_Id { get; set; }
-        [Display(Name = "Linea")]
+        [Display(Name = "Area")]
         public string Linea { get; set; }
+        public virtual ICollection<Documenti> Documentis { get; set; }
 
     }
     public class Sessioni
@@ -130,6 +134,7 @@ namespace CamenMVC.Models
         public int Sessione_Id { get; set; }
         [Display(Name = "Sessione")]
         public string Sessione { get; set; }
+        public virtual ICollection<Documenti> Documentis { get; set; }
 
     }
 
@@ -153,6 +158,8 @@ namespace CamenMVC.Models
         public string Oratore { get; set; }
         [Display(Name="Titolo")]
         public string Titolo { get; set; }
+        [Display(Name = "Descrizione")]
+        public string Descrizione { get; set; }
         [Display(Name ="Data di pubblicazione")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]

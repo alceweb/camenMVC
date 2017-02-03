@@ -6,7 +6,6 @@
 <input id="btnfiltro" type="button" class="btn btn-primary" value="Ricerca globale" />
 @*Inizio Rierca per categoria*@
 <table id="cerca" class="table table-hover">
-
     @foreach (var group in Model.GroupBy(item => item.Categoria))
     {
         <tr>
@@ -26,6 +25,18 @@
 <div id="filtro">
     @if (User.Identity.IsAuthenticated)
     {
+        <h4 class="label label-info pull-right">
+            Puoi scaricare solo i file con l'icona <span class="fa fa-download"></span> download
+            <a class="fa fa-info-circle" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            </a>
+        </h4>
+                <div class="collapse" id="collapseExample">
+                    <div class="well">
+                        Il download di alcuni files è riservato ad utenti con specifica autorizzazione.
+                        Se sei interessato al documento, contattaci compilando l'apposito Form nel menù "Contatti - Segreteria".<br />
+                        If you are interested in this document, please contact us filling in the Form you'll find in the menù tab "Contatti - Segreteria".
+                    </div>
+                </div>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -46,6 +57,9 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Titolo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descrizione)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Data)
@@ -86,6 +100,9 @@
                         @Html.DisplayFor(modelItem => item.Titolo)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Descrizione)
+                    </td>
+                    <td>
                         @item.Data.ToString("dd-MMM-yyyy")
                     </td>
                     <td>
@@ -106,16 +123,6 @@
                                 }
                             }
                         }
-                        else
-                        {
-                            <a class="fa fa-ban fa-2x text-danger" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            </a>
-                            <div class="collapse" id="collapseExample">
-                                <div class="well">
-                                    Il download di questo file è riservato ad utenti registrati e appartenenti ad uno specifico ruolo. Se sei interessato alla visualizzazione del documento contattaci...
-                                </div>
-                            </div>
-                        }
                         @*fine pulsante download filtrato dai ruoli*@
                     </td>
                 </tr>
@@ -125,7 +132,13 @@
     }
     else
     {
-        <div>@Html.Action("Login", "Account")</div>
+        
+        <div>
+            <h3>Per visualizzare la lista dei documenti devi essere registrato al sito</h3>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Login</a>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-success">Registrati</a>
+
+        </div>
     }
 
     </div>

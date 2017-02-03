@@ -22,7 +22,11 @@ namespace CamenMVC.Controllers
             ViewBag.DocumentisCount = documentis.Count();
             return View(documentis);
         }
-
+        // Pagina documenti contenente files a disposizione anche degli utenti non registrati
+        public ActionResult IndexAn()
+        {
+            return View();
+        }
         public ActionResult IndexUt()
         {
             var documentis = db.Documentis.OrderByDescending(d => d.Data).Include(d => d.Categoria).Include(d => d.Evento).Include(d => d.Linea).Include(d => d.Sessione);
@@ -102,7 +106,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase NomeFile, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Data,Riferimento,Lingua,NomeFile")] Documenti documenti)
+        public ActionResult Create(HttpPostedFileBase NomeFile, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Descrizione,Data,Riferimento,Lingua,NomeFile")] Documenti documenti)
         {
             if (ModelState.IsValid)
             {
@@ -148,6 +152,7 @@ namespace CamenMVC.Controllers
                 Sessione_Id = documenti.Sessione_Id,
                 Oratore = documenti.Oratore,
                 Titolo = documenti.Titolo,
+                Descrizione = documenti.Descrizione,
                 Data = documenti.Data,
                 Riferimento = documenti.Riferimento,
                 Lingua = documenti.Lingua,
@@ -167,7 +172,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, [Bind(Include = "Documento_Id,RuoloId")] DocRuoli docRuoli, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Data,Riferimento,Lingua,NomeFile")] EditDocViewModel editDoc, params string[] selectedRole)
+        public ActionResult Edit(int? id, [Bind(Include = "Documento_Id,RuoloId")] DocRuoli docRuoli, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Descrizione,Data,Riferimento,Lingua,NomeFile")] EditDocViewModel editDoc, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -188,6 +193,7 @@ namespace CamenMVC.Controllers
                 documenti.Sessione_Id = editDoc.Sessione_Id;
                 documenti.Oratore = editDoc.Oratore;
                 documenti.Titolo = editDoc.Titolo;
+                documenti.Descrizione = editDoc.Descrizione;
                 documenti.Data = editDoc.Data;
                 documenti.Riferimento = editDoc.Riferimento;
                 documenti.Lingua = editDoc.Lingua;
