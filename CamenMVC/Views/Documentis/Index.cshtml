@@ -50,8 +50,15 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    //evidenzio i documenti che sono pubblici
+    var cl = "";
+    if (@item.Linea_Id == 1)
+    {
+        cl = "alert alert-success";
+    }
+    <tr class="@cl">
         <td>
+            @item.Linea_Id
             @Html.DisplayFor(modelItem => item.Categoria.Categoria)
         </td>
         <td>

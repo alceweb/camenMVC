@@ -1,8 +1,34 @@
-﻿@{
-  ViewBag.Title = "Documenti pubblici";
+﻿@model IEnumerable<CamenMVC.Models.Documenti>
+@using Microsoft.AspNet.Identity
+
+<h2>Sezione documenti</h2>
+
+@foreach (var group in Model.GroupBy(item => item.Categoria))
+{
+    <p>
+        <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#@group.Key.Categoria_Id" aria-expanded="false" aria-controls="@group.Key.Categoria_Id">
+            <span class="badge pull-left">@group.Count()</span>@group.Key.Categoria 
+        </button>
+
+    </p>
+    <div class="collapse" id="@group.Key.Categoria_Id">
+                <table class="table table-hover">
+                    @foreach (var item in group)
+                    {
+                        <tr>
+                            <td>
+                                @item.Descrizione
+                            </td>
+                            <td>
+                                @item.Data.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"></a><span> @item.NomeFile</span>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
 }
 
-
-<h2>@ViewBag.Title</h2>
-<h3>Struttura per ricerca e visualizzazione documenti a disposizione di tutti</h3>
-<hr/>

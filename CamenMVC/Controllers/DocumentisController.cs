@@ -25,7 +25,8 @@ namespace CamenMVC.Controllers
         // Pagina documenti contenente files a disposizione anche degli utenti non registrati
         public ActionResult IndexAn()
         {
-            return View();
+            var documentis = db.Documentis.Where(d=>d.Evento_Id == 1).OrderByDescending(d => d.Data).Include(d => d.Categoria);
+            return View(documentis.ToList());
         }
         public ActionResult IndexUt()
         {
