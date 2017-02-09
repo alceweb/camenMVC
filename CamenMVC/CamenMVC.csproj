@@ -238,9 +238,14 @@
     <Compile Include="Migrations\201701311828485_Decsrizionedoc.Designer.cs">
       <DependentUpon>201701311828485_Decsrizionedoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702090841021_checkprivacy.cs" />
+    <Compile Include="Migrations\201702090841021_checkprivacy.Designer.cs">
+      <DependentUpon>201702090841021_checkprivacy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
+    <Compile Include="Models\FormsViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuViewModels.cs" />
@@ -578,6 +583,7 @@
     <Content Include="Views\Documentis\Docpdf.cshtml" />
     <Content Include="Views\Shared\_LayoutDoc.cshtml" />
     <Content Include="Views\Documentis\IndexAn.cshtml" />
+    <Content Include="Views\Home\FormOk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -626,6 +632,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701311828485_Decsrizionedoc.resx">
       <DependentUpon>201701311828485_Decsrizionedoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702090841021_checkprivacy.resx">
+      <DependentUpon>201702090841021_checkprivacy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

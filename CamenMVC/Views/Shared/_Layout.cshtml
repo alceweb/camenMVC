@@ -28,11 +28,11 @@
         var cl = "";
         if (User.IsInRole("Admin"))
         {
-            cl = "navbar navbar-inverse navi1";
+            cl = "navbar-inverse navi1";
         }
         else
         {
-            cl = "navbar navbar-inverse navi1";
+            cl = "navbar-inverse navi1";
         }
         //Menu per documenti riservati sulla destra
         if (User.Identity.IsAuthenticated)
@@ -59,7 +59,6 @@
                 <ul class="nav navbar-nav btn-group">
                     @if (User.Identity.IsAuthenticated)
                     {
-
                         @*Inizio gruppo menu autenticati*@
                     if (User.IsInRole("Admin"))
                     {
@@ -115,97 +114,34 @@
                     }
                     else
                     {
-                        if (User.IsInRole("Insegnante"))
+                        //Inizio barra menu dei ruoli non amministratore
+                        var roles = db.Roles.Where(r => r.Name != "Admin").ToList();
+                        foreach (var rolesitem in roles)
                         {
-                            //Inizio barra menu insegnante
-                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Insegnante").OrderBy(n => n.Posizione).ToList();
-                            foreach (var item in menu)
+                            var ruolo = rolesitem.Name;
+                            if (User.IsInRole(ruolo))
                             {
-                                <li>
-                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                    @*Inizio barra sottomenu insegnante*@
-                                    <ul class="dropdown-menu" role="menu">
-                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                        {
-                                            if (item1.Pubblica == true)
+                                var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == ruolo).OrderBy(n => n.Posizione).ToList();
+                                foreach (var item in menu)
+                                {
+                                    <li>
+                                        <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
+                                        @*Inizio barra sottomenu dei ruoli non amministratore *@
+                                        <ul class="dropdown-menu" role="menu">
+                                            @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
                                             {
-                                                <li>
-                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                </li>
+                                                if (item1.Pubblica == true)
+                                                {
+                                            <li>
+                                                <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
+                                            </li>
+                                                }
                                             }
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                        }
-                        if (User.IsInRole("Studente"))
-                        {
-                            //Inizio barra menu studente
-                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Studente").OrderBy(n => n.Posizione).ToList();
-                            foreach (var item in menu)
-                            {
-                                <li>
-                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                    @*Inizio barra sottomenu studente*@
-                                    <ul class="dropdown-menu" role="menu">
-                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                        {
-                                            if (item1.Pubblica == true)
-                                            {
-                                                <li>
-                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                </li>
-                                            }
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                        }
-                        if (User.IsInRole("Socio"))
-                        {
-                            //Inizio barra menu segreteria
-                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "socio").OrderBy(n => n.Posizione).ToList();
-                            foreach (var item in menu)
-                            {
-                                <li>
-                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                    @*Inizio barra sottomenu segreteria*@
-                                    <ul class="dropdown-menu" role="menu">
-                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                        {
-                                            if (item1.Pubblica == true)
-                                            {
-                                                <li>
-                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                </li>
-                                            }
-                                        }
-                                    </ul>
-                                </li>
-                            }
-                        }
-                        if (User.IsInRole("Congressi"))
-                        {
-                            //Inizio barra menu segreteria
-                            var menu = db.Menus.Include(e => e.MenuRuoli).Where(n => n.Pubblica == true && n.Ruolo == "Congressi").OrderBy(n => n.Posizione).ToList();
-                            foreach (var item in menu)
-                            {
-                                <li>
-                                    <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">@item.TestoMenu<b class="caret"></b></a>
-                                    @*Inizio barra sottomenu segreteria*@
-                                    <ul class="dropdown-menu" role="menu">
-                                        @foreach (var item1 in item.SottoMenus.OrderBy(o => o.Posizione))
-                                        {
-                                            if (item1.Pubblica == true)
-                                            {
-                                                <li>
-                                                    <a href="@Url.Action("IndexUt", "Paginas", new { id = @item1.Smenu_Id })">@item1.TestoSmenu </a>
-                                                </li>
-                                            }
-                                        }
-                                    </ul>
-                                </li>
+                                        </ul>
+                                    </li>
+                                    }
                                 }
+
                             }
                         }
                     }
@@ -236,6 +172,9 @@
                     <li>
                         <a href="@Url.Action("IndexAn", "Documentis")" class="fa fa-file-pdf-o fa-2x" title="documenti download"></a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home")" class="fa fa-info-circle fa-2x" title="Contatti"></a>
+                    </li>
                     @*Fine barra menu utenti anonimi*@
                 </ul>
             </div>
@@ -243,29 +182,6 @@
     </div>
 }
 
-@*Inizio barra amministratore bottom - gestione utenti ruoli menu splash documenti*@
-@if (Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    <div class="navbar navbar-inverse navbar-fixed-bottom navi">
-        <div class="container">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav btn-group">
-                    <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
-                    <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
-                    <li><div><a href="@Url.Action("Index", "Menus")" class="glyphicon glyphicon-option-horizontal"><span>Gestione menu</span></a></div></li>
-                    <li><div><a href="@Url.Action("Index", "Splashes")" class="glyphicon glyphicon-credit-card"><span>Gestione splash</span></a></div></li>
-                    <li><div><a href="@Url.Action("Index", "Documentis")" class="fa fa-file-pdf-o"><span>Gestione documenti</span></a></div></li>
-               </ul>
-            </div>
-        </div>
-    </div>
-}
-@*Fine barra barra amministratore bottom - gestione utenti ruoli*@
 
     @if (ViewBag.Title == "Home")
     {
@@ -320,7 +236,32 @@
             </footer>*@
             </div>
 
-        @Scripts.Render("~/bundles/jquery")
+@*Inizio barra amministratore bottom - gestione utenti ruoli menu splash documenti*@
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="navbar navbar-inverse navbar-fixed-bottom navi">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav btn-group">
+                    <li><div><a href="@Url.Action("Index", "RolesAdmin")" class="glyphicon glyphicon-tag"><span>Gestione ruoli</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "UsersAdmin")" class="glyphicon glyphicon-user"><span>Gestione utenti</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Menus")" class="glyphicon glyphicon-option-horizontal"><span>Gestione menu</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Splashes")" class="glyphicon glyphicon-credit-card"><span>Gestione splash</span></a></div></li>
+                    <li><div><a href="@Url.Action("Index", "Documentis")" class="fa fa-file-pdf-o"><span>Gestione documenti</span></a></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+    @*Fine barra barra amministratore bottom - gestione utenti ruoli*@
+
+   
+         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
         <script src="~/Scripts/jquery.filtertable.min.js"></script>

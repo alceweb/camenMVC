@@ -17,6 +17,8 @@ namespace CamenMVC.Models
         public string Nome { get; set; }
         [Display(Name ="Cognome")]
         public string Cognome { get; set; }
+        [Display(Name ="Informativa privacy")]
+        public bool Privacy { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

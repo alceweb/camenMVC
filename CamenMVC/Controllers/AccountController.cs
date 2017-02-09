@@ -153,7 +153,39 @@ namespace CamenMVC.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.Nome = model.Nome;
+                user.Cognome = model.Cognome;
+                user.Cognome = model.Cognome;
                 var result = await UserManager.CreateAsync(user, model.Password);
+                // Invio la mail per avvisare che si è iscritto un utente
+                MailMessage message = new MailMessage(
+                    "webservice@camen.org",
+                    "cesare@cr-consult.eu",
+                    "Nuovo iscritto al sito camen.org",
+                    "Il giorno " + DateTime.Now + "<br/><strong>" +
+                    user.Nome + " " +
+                    user.Cognome + "</strong> [" +
+                    user.Email + "] " +
+                    "<br/> si è registrato al sito www.camen.org<hr/><ul><li> Indirizzo: <strong>" +
+                    model.Indirizzo +
+                    "</strong></li><li> Telefono: <strong>" +
+                    model.Telefono +
+                     "</strong></li><li> Professione: <strong>" +
+                    model.Professione +
+                     "</strong></li><li> Organizzazione: <strong>" +
+                    model.Organizzazione +
+                   "</strong></li><li> Ruolo dichiarato: <strong>" +
+                    model.Ruolo +
+                    "</strong></li><li> Note: <strong>" +
+                    model.Note +
+                    "</strong></li>"
+                    );
+                message.IsBodyHtml = true;
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                }
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

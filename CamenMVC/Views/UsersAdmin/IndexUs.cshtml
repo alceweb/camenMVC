@@ -3,8 +3,8 @@
     ViewBag.Title = "Gestione profilo";
 }
 
-<h2>@ViewBag.Title</h2>
-<h4>Modifica i dati del profilo</h4>
+<h2>@ViewBag.Title <span class="badge">@ViewBag.Utente</span></h2>
+<hr />
 <ul class="list-unstyled">
     <li>
         <h3><span class="glyphicon glyphicon-floppy-saved"> @Html.ActionLink("Cambia password", "ChangePassword", "Manage")</span></h3>

@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<CamenMVC.Models.Documenti>
 @using Microsoft.AspNet.Identity
 
-<h2>Sezione documenti</h2>
+@{
+    ViewBag.Title = "Documenti";
+}
+<h2>@ViewBag.Title</h2><hr/>
 
 @foreach (var group in Model.GroupBy(item => item.Categoria))
 {
@@ -17,6 +20,9 @@
                     {
                         <tr>
                             <td>
+                                @item.Titolo
+                            </td>
+                           <td>
                                 @item.Descrizione
                             </td>
                             <td>

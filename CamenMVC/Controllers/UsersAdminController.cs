@@ -67,7 +67,7 @@ namespace CamenMVC.Controllers
         public ActionResult IndexUs()
         {
             var uid = User.Identity.GetUserId();
-            ViewBag.Uid = uid;
+            ViewBag.Utente = User.Identity.GetUserName();
             return View();
         }
 

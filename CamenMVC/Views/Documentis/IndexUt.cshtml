@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<CamenMVC.Models.Documenti>
 @using Microsoft.AspNet.Identity
 
-<h2>Sezione documenti</h2>
-<input id="btncerca" type="button" class="btn btn-primary" value="Ricerca per categorie" />
-<input id="btnfiltro" type="button" class="btn btn-primary" value="Ricerca globale" />
+@{
+    ViewBag.Title = "Biblioteca riservata";
+}
+
+<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" /><h2>@ViewBag.Title</h2><hr/>
+<input id="btncat" class="btn btn-primary" type="button" value="Ricerca per categorie" />
+<input id="btnfiltro" class="btn btn-default" type="button" value="Ricerca globale" />
 @*Inizio Rierca per categoria*@
-<table id="cerca" class="table table-hover">
+<table id="cat" class="table table-hover">
     @foreach (var group in Model.GroupBy(item => item.Categoria))
     {
         <tr>
@@ -23,103 +27,115 @@
 
 @*Inizio Ricerca globale*@
 <div id="filtro">
+    <table class="table table-bordered" >
+        <tr>
+            <td>
+                        <h4 class="label label-info">
+                            Puoi scaricare solo i file con l'icona <span class="fa fa-download"></span> download
+                            <a class="fa fa-info-circle" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            </a>
+                        </h4>
+                        <div class="collapse" id="collapseExample">
+                            <div class="well-sm">
+                                Il download di alcuni files è riservato ad utenti con specifica autorizzazione.
+                                Se sei interessato al documento, contattaci compilando l'apposito Form nel menù "Contatti - Segreteria".<br />
+                                If you are interested in this document, please contact us filling in the Form you'll find in the menù tab "Contatti - Segreteria".
+                            </div>
+                        </div>
+
+            </td>
+        </tr>
+    </table>
     @if (User.Identity.IsAuthenticated)
     {
-        <h4 class="label label-info pull-right">
-            Puoi scaricare solo i file con l'icona <span class="fa fa-download"></span> download
-            <a class="fa fa-info-circle" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            </a>
-        </h4>
-                <div class="collapse" id="collapseExample">
-                    <div class="well">
-                        Il download di alcuni files è riservato ad utenti con specifica autorizzazione.
-                        Se sei interessato al documento, contattaci compilando l'apposito Form nel menù "Contatti - Segreteria".<br />
-                        If you are interested in this document, please contact us filling in the Form you'll find in the menù tab "Contatti - Segreteria".
-                    </div>
-                </div>
+
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Categoria.Categoria)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Evento.Evento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Linea.Linea)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Sessione.Sessione)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Oratore)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Titolo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Descrizione)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Data)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Riferimento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lingua)
-                    </th>
-                    <th>
+                    <th colspan="11">
+
                     </th>
                 </tr>
+
             </thead>
             <tr>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria.Categoria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Evento.Evento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Linea.Linea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sessione.Sessione)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Oratore)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titolo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descrizione)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Data)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Riferimento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lingua)
+                </th>
+                <th>
+                </th>
             </tr>
-
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria.Categoria)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Evento.Evento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Linea.Linea)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Sessione.Sessione)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Oratore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titolo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descrizione)
-                    </td>
-                    <td>
-                        @item.Data.ToString("dd-MMM-yyyy")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Riferimento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lingua)
-                    </td>
-                    <td>
-                        @*pulsante download filtrato dai ruolo*@
-                        @if (item.DocRuolis.Count() > 0)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Evento.Evento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Linea.Linea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sessione.Sessione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oratore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titolo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descrizione)
+                </td>
+                <td>
+                    @item.Data.ToString("dd-MMM-yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Riferimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lingua)
+                </td>
+                <td>
+
+                    @*pulsante download filtrato dai ruolo*@
+                    @if (item.DocRuolis.Count() > 0)
                         {
                             foreach (var itemr in item.DocRuolis.Where(r => r.Documento_Id == item.Documento_Id))
                             {
                                 if (User.IsInRole(itemr.RuoloId))
                                 {
-                                    <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"> @itemr.RuoloId</span></a>
+                        <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"></span></a>
+                        <p>@itemr.RuoloId</p>
                                 }
                             }
                         }
@@ -132,7 +148,7 @@
     }
     else
     {
-        
+
         <div>
             <h3>Per visualizzare la lista dei documenti devi essere registrato al sito</h3>
             <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Login</a>
@@ -140,30 +156,27 @@
 
         </div>
     }
-
-    </div>
-
+</div>
 @*Fine ricerca globale*@
+
 @section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#cerca').show();
-            $('#btnfiltro').show();
-            $('#btncerca').hide();
+            $('#cat').show();
             $('#filtro').hide();
         })
-        $('#btncerca').click(function () {
-            $('#cerca').show();
+        $('#btncat').click(function () {
+            $('#cat').show();
             $('#filtro').hide();
-            $('#btnfiltro').show();
-            $(this).hide();
+            $('#btnfiltro').removeClass('btn-primary').addClass('btn-default');
+            $(this).removeClass('btn-default').addClass('btn-primary');
         });
         $('#btnfiltro').click(function () {
-            $('#cerca').hide();
+            $('#cat').hide();
             $('#filtro').show();
-            $('#btncerca').show();
-            $(this).hide();
-        })
+            $('#btncat').toggleClass('btn btn-primary').addClass('btn btn-default');
+            $(this).removeClass('btn-default').addClass('btn-primary');
+        });
     </script>
 
 }
