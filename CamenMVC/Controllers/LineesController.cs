@@ -17,9 +17,10 @@ namespace CamenMVC.Controllers
         // GET: Linees
         public ActionResult Index()
         {
-            var doc = db.Documentis.ToList();
-            ViewBag.Doc = doc;
-            return View(db.Linees.ToList());
+            
+            var linee = db.Linees.OrderBy(l=>l.Linea).ToList();
+            ViewBag.LineeCount = linee.Count();
+            return View(linee);
         }
 
         // GET: Linees/Details/5

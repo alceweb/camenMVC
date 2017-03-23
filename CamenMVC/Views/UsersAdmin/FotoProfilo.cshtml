@@ -5,13 +5,14 @@
 
 <h2>@ViewBag.Title</h2>
 <h4>Modifica la foto del tuo profilo</h4>
-
+<hr />
 @using (Html.BeginForm("FotoProfilo", "UsersAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input id="file" name="file" type="file" /><br />
     <label class="alert-warning"> Solo file immagini JPG. Dimensione ottimale in pixel 200x200</label><br />
+    <span>Se dopo aver premuto il tasto "Carica" l'immagine non apare, premere il tasto "F5"</span><br/>
     <span class="alert-danger">@ViewBag.Message</span><br />
-    <img class="img-responsive" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @ViewBag.uid + ".jpg")" /><br />
-    <input id="Button1" class="btn btn-primary" type="submit" value="Carica" />
-    @Html.ActionLink("Torna a gestione profilo", "IndexUs", null, new { @class = "btn btn-danger" })
+    <img class="img-responsive" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @ViewBag.uid + ".jpg")" /><hr />
+    <input id="Button1" class="btn btn-success" type="submit" value="Carica" />
+    @Html.ActionLink("Annulla", "IndexUs", null, new { @class = "btn btn-primary" })
 }

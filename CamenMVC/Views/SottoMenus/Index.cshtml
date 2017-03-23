@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "SottoMenus")" class="btn btn-primary"><span class="badge">@ViewBag.SottoMenusCount </span> Nuovo</a><br />
 </p>
 <table class="table table-hover">
     <tr>
@@ -35,9 +35,17 @@
             @Html.DisplayFor(modelItem => item.Pubblica)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Smenu_Id }) |
-            @Html.ActionLink("Pagina", "Details", new { id=item.Smenu_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Smenu_Id })
+            @Html.ActionLink("Modifica", "Edit", new { id = item.Smenu_Id }, new { @class = "btn btn-xs btn-success" })
+            @Html.ActionLink("Dettagli", "Details", new { id = item.Smenu_Id }, new { @class = "btn btn-xs btn-primary" })
+            @*Controllo se il sottomenu contienedelle pagine*@
+            @if (item.Paginas.Count() == 0)
+            {
+                @Html.ActionLink("Cancella", "Delete", new { id = item.Smenu_Id }, new { @class = "btn btn-xs btn-danger" })
+            }
+            else
+            {
+                <span class="badge">@item.Paginas.Count() pagine</span>
+            }
         </td>
     </tr>
 }

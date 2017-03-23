@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+<script src="~/Scripts/moment-with-locales.min.js"></script>
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
@@ -74,7 +74,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Salva" class="btn btn-success" />
                 <a href="@Url.Action("Index")" class="btn btn-danger">Annulla</a>
             </div>
         </div>
@@ -85,9 +85,8 @@
             $(function () {
                 $('.datepicker').datepicker({
                     autoclose: true,
-                    todayHighlight: true,
-                    format: "dd/mm/yyyy",
-                    language: "it"
+                    format: 'dd/mm/yyyy',
+                    language:'it'
                 });
             });
     </script>

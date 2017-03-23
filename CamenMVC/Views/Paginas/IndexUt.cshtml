@@ -26,6 +26,15 @@
     {
         <hr/>
         <h3>
+            @if (item.Pubblica == true)
+            {
+                <span class="fa fa-thumbs-o-up text-success"></span>
+
+            }
+            else
+            {
+                <span class="fa fa-thumbs-o-down text-danger"></span>
+            }
             <a href="@Url.Action("Edit", "Paginas", new {id = item.Pagina_Id})"><span class="glyphicon glyphicon-pencil"></span></a>
         </h3>
     }

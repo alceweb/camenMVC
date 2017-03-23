@@ -9,11 +9,9 @@
 <table class="table">
     <tr>
         <th></th>
+        <th>Pubblicato</th>
         <th>
             @Html.DisplayNameFor(model => model.TestoMenu)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.Pubblica)
     </th>
     <th>
         @Html.DisplayNameFor(model => model.Posizione)
@@ -25,6 +23,17 @@
     <tr>
         <td>
             <a href="@Url.Action("Edit", "Menus", new { id = item.Menu_Id  })"><span class="glyphicon glyphicon-pencil text-success"></span></a>
+        </td>
+        <td>
+            @if (item.Pubblica == true)
+            {
+                <span class="fa fa-thumbs-o-up text-success"></span>
+            }
+            else
+            {
+                <span class="fa fa-thumbs-o-down text-danger"></span>
+            }
+
         </td>
         <td>
             @*Controllo se ci sono sottomenu. Se non ci sono abilito la cancellazione del menu*@
@@ -63,7 +72,15 @@
 
                                 </td>
                                 <td>
-                                    @item1.TestoSmenu
+                                    @if (item1.Pubblica == true)
+                                    {
+                                        <span class="fa fa-thumbs-o-up text-success"> @item1.TestoSmenu</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="fa fa-thumbs-o-down text-danger"> @item1.TestoSmenu</span>
+                                    }
+
                                 </td>
                             </tr>
                         }
@@ -71,9 +88,6 @@
                 </div>
             </div>
             }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pubblica)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Posizione)

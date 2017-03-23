@@ -22,6 +22,9 @@ namespace CamenMVC.Models
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
         [Display(Name = "Nome")]
         public string Nome { get; set; }
         [Display(Name = "Cognome")]

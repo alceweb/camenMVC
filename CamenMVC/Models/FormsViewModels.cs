@@ -27,9 +27,10 @@ namespace CamenMVC.Models
         public string Professione { get; set; }
         [Display(Name = "Organizzazione di appartenenza")]
         public string Organizzazione { get; set; }
+        [Required]
         [Display(Name = "Richiesta")]
         public string Richiesta { get; set; }
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Devi accettare il documento della privacyd.")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Devi accettare il documento della privacy.")]
         [Display(Name = "Informativa privacy")]
         public bool Privacy { get; set; }
 

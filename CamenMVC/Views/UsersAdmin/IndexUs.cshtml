@@ -3,17 +3,17 @@
     ViewBag.Title = "Gestione profilo";
 }
 
-<h2>@ViewBag.Title <span class="badge">@ViewBag.Utente</span></h2>
+<h2>@ViewBag.Title </h2>
 <hr />
 <ul class="list-unstyled">
     <li>
         <h3><span class="glyphicon glyphicon-floppy-saved"> @Html.ActionLink("Cambia password", "ChangePassword", "Manage")</span></h3>
     </li>
     <li>
-        <h3><span class="glyphicon glyphicon-duplicate"> @Html.ActionLink("Dati anagrafici", "EditUs", new { id = @ViewBag.Uid })</span></h3>
+        <h3><span class="glyphicon glyphicon-duplicate"> @Html.ActionLink("Dati anagrafici", "EditUs", new { id = @ViewBag.uid })</span></h3>
     </li>
     <li>
-        <h3><span class="glyphicon glyphicon-camera"> @Html.ActionLink("Foto profilo", "FotoProfilo", new { id = @ViewBag.Uid })</span></h3>
+        <h3><span class="glyphicon glyphicon-camera"> @Html.ActionLink("Foto profilo", "FotoProfilo", new { id = @ViewBag.uid })</span></h3>
     </li>
 </ul>
 

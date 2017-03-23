@@ -19,8 +19,9 @@ namespace CamenMVC.Controllers
         // GET: SottoMenus
         public ActionResult Index()
         {
-            var sottoMenus = db.SottoMenus.Include(s => s.TestoMenu);
-            return View(sottoMenus.ToList());
+            var sottoMenus = db.SottoMenus.Include(s => s.TestoMenu).Include(p=>p.Paginas).ToList();
+            ViewBag.SottoMenusCount = sottoMenus.Count();
+            return View(sottoMenus);
         }
 
         public ActionResult IndexAdm(int id)

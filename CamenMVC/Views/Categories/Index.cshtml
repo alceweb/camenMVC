@@ -4,8 +4,8 @@
     ViewBag.Title = "Categorie";
 }
 
-<h2>@ViewBag.Title</h2>
-
+<h2>@ViewBag.Title </h2>
+    <h2><a href="@Url.Action("Create", "Categories")" class="btn btn-primary"><span class="badge">@ViewBag.CategorieCount</span> Nuova</a></h2>
 <table class="table table-hover">
 @foreach (var item in Model) {
     <tr>
@@ -22,7 +22,7 @@
                     <div class="well">
                         @foreach (var item1 in item.Documentis)
                         {
-                            <div><a href="@Url.Action("Edit", "Documentis", new {id = @item1.Documento_Id})"> @item1.NomeFile</a></div>
+                            <div><a href="@Url.Action("Edit", "Documentis", new {id = @item1.Documento_Id})" title="@item1.Descrizione"> @item1.NomeFile</a></div>
                         }
                     </div>
                 </div>
@@ -38,4 +38,5 @@
 }
 
 </table>
+<hr />
 @Html.ActionLink("Fatto", "Index", "Documentis", null, new {@class="btn btn-success" })

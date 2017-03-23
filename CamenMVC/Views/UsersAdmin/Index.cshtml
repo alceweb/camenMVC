@@ -7,27 +7,30 @@
 <h2>@ViewBag.Title</h2>
 <div class="row">
     <div class="col col-md-8">
-        <a href="@Url.Action("Create", "UsersAdmin")" class="btn btn-primary"><span class="badge">@ViewBag.UtentiCount</span> Nuovo</a>
+        <h3><span class="label label-primary"><span class="badge">@ViewBag.UtentiCount</span> Utenti registrati</span></h3>
     </div>
 </div>
 <table class="table table-hover">
-    <tr>
-        <th>
+    <thead>
+        <tr>
+            <th>
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
 
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cognome)
-        </th>
-        <th></th>
-    </tr>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cognome)
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
 
     @foreach (var item in Model)
     {

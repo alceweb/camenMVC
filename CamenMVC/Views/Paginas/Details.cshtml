@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Dettagli pagina</h2>
 
 <div>
-    <h4>Pagina</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,7 +26,8 @@
 
     </dl>
 </div>
+<hr />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Pagina_Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.Pagina_Id}, new { @class = "btn btn-success" })
+    @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
 </p>

@@ -7,27 +7,36 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    <a href="@Url.Action("Create", "Splashes")" class="btn btn-primary"><span class="badge">@ViewBag.SplashCount </span> Nuovo</a>
+    <a href="@Url.Action("Create", "Splashes")" class="btn btn-primary"><span class="badge">@ViewBag.SplashCount </span> Nuovo</a><br/>
+    <span class="text-danger">Quelle evidenziate sono pubblicate in prima pagina</span>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titolo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SottoTitolo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataF)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SottoTitolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataF)
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
 
 @foreach (var item in Model) {
-    <tr>
+    var sty = "";
+    if(item.DataI <= DateTime.Now && item.DataF >= DateTime.Now)
+    {
+        sty = "alert alert-danger";
+    }
+    <tr class="@sty">
         <td>
             @Html.DisplayFor(modelItem => item.Titolo)
         </td>
@@ -41,9 +50,9 @@
             @item.DataF.ToString("dd MMM yyyy")
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Splash_Id }, new {@class="btn btn-xs btn-success" })
-            @Html.ActionLink("Details", "Details", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-danger" })
+            @Html.ActionLink("Modifica", "Edit", new { id=item.Splash_Id }, new {@class="btn btn-xs btn-success" })
+            @Html.ActionLink("Dettagli", "Details", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-primary" })
+            @Html.ActionLink("Cancella", "Delete", new { id=item.Splash_Id }, new { @class = "btn btn-xs btn-danger" })
         </td>
     </tr>
 }

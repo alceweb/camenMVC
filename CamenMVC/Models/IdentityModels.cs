@@ -72,6 +72,9 @@ namespace CamenMVC.Models
         public string Contenuo { get; set; }
         [Display(Name = "Posizione")]
         public int Posizione { get; set; }
+        [Display(Name = "Pubblica")]
+        public bool Pubblica { get; set; }
+
 
     }
 
@@ -108,6 +111,7 @@ namespace CamenMVC.Models
     public class Categorie
     {
         [Key]
+        [Display(Name = "Categoria")]
         public int Categoria_Id { get; set; }
         [Display(Name = "Categoria")]
         public string Categoria { get; set; }
@@ -116,6 +120,7 @@ namespace CamenMVC.Models
     public class Eventi
     {
         [Key]
+        [Display(Name = "Evento")]
         public int Evento_Id { get; set; }
         [Display(Name = "Evento")]
         public string Evento { get; set; }
@@ -124,6 +129,7 @@ namespace CamenMVC.Models
     public class Linee
     {
         [Key]
+        [Display(Name ="Area")]
         public int Linea_Id { get; set; }
         [Display(Name = "Area")]
         public string Linea { get; set; }
@@ -133,6 +139,7 @@ namespace CamenMVC.Models
     public class Sessioni
     {
         [Key]
+        [Display(Name = "Sessione")]
         public int Sessione_Id { get; set; }
         [Display(Name = "Sessione")]
         public string Sessione { get; set; }
@@ -150,7 +157,7 @@ namespace CamenMVC.Models
         [Display(Name = "Evento")]
         public int Evento_Id { get; set; }
         public virtual Eventi Evento { get; set; }
-        [Display(Name = "Linea")]
+        [Display(Name = "Area")]
         public int Linea_Id { get; set; }
         public virtual Linee Linea { get; set; }
         [Display(Name = "Sessione")]

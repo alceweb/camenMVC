@@ -18,9 +18,9 @@ namespace CamenMVC.Controllers
         // GET: Eventis
         public ActionResult Index()
         {
-            var doc = db.Documentis.ToList();
-            ViewBag.Doc = doc;
-            return View(db.Eventis.ToList());
+            var eventi = db.Eventis.OrderBy(e=>e.Evento).ToList();
+            ViewBag.EventiCount = eventi.Count();
+            return View(eventi);
         }
 
 

@@ -6,35 +6,36 @@
 <h2>@ViewBag.Title.</h2><hr/>
 
 <address>
-    Associazione ST Camen<br />
+    Associazione Sintotermico Camen<br />
     Via S. Cristoforo, 3-5 20144 Milano<br/>
     P.I.:  04855900967 - C.F.: 97380760153<br />
-    Tel. 02 00000
-    <strong>Segreteria:</strong>   <a href="mailto:info@camen.org">info@camen.org</a><br />
-</address><hr/>
+    Telefono 02.477.166.05 GSM: 342.13.82.379 Fax 02.477.166.05
+<br />
+</address><hr class="hr1"/>
 @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+    <span class="badge">Campi obbligatori *</span>
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Email) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Nome, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Nome) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Cognome, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Cognome) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Cognome, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Indirizzo, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Indirizzo) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Indirizzo, new { @class = "form-control" })
         </div>
@@ -58,7 +59,7 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Richiesta, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Richiesta) *</span>
         <div class="col-md-10">
             @Html.TextAreaFor(m => m.Richiesta, new { @class = "form-control" })
         </div>
@@ -68,12 +69,11 @@
         <div class="col-md-10">
             <h4>
                 @Html.CheckBoxFor(m => m.Privacy)
-                <a href="http://www.crctest.cloud/Content/Documenti/Privacy-V1.pdf?id=21" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
                 <br/>Dichiaro di aver preso visione del <a href="http://www.crctest.cloud/Content/Documenti/Privacy-V1.pdf?id=21" target="_blank"> documento della privacy</a>
             </h4>
         </div>
     </div>
-
+    <hr/>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input  type="submit" class="btn btn-success" value="Invia" />

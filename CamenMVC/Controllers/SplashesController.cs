@@ -20,7 +20,7 @@ namespace CamenMVC.Controllers
         // GET: Splashes
         public ActionResult Index()
         {
-            var splash = db.Splashs.ToList();
+            var splash = db.Splashs.OrderByDescending(s=>s.DataI).ToList();
             ViewBag.SplashCount = splash.Count();
             return View(splash);
         }

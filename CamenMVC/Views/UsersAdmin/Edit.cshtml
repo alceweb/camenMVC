@@ -5,8 +5,6 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
-<h4>Modifica</h4>
 <hr class="hr1" />
 <div class="row">
     <div class="col col-md-4 text-center">
@@ -35,6 +33,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+                </div>
+
+                <div class="form-group">
                     @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
@@ -54,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        @Html.Label("Roles", new { @class = "control-label col-md-2" })
+                        @Html.Label("Ruoli", new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @foreach (var item in Model.RolesList)
                 {
@@ -67,6 +73,7 @@
 
                     </div>
                 </div>
+                <hr/>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Salva" class="btn btn-success" />

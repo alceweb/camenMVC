@@ -22,7 +22,7 @@
                 @Html.ValidationMessageFor(model => model.Categoria_Id, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group divpub">
+        <div class="form-group">
             @Html.LabelFor(model => model.Evento_Id, "Evento", htmlAttributes: new {@class = "control-label col-md-2" })
             <div class="col-md-10">
                 <a href="@Url.Action("Create", "Eventis")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
@@ -31,11 +31,12 @@
             </div>
         </div>
 
-        <div class="form-group divpub">
+        <div class="form-group label-success divpub">
             @Html.LabelFor(model => model.Linea_Id, "Area", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <a href="@Url.Action("Create", "Linees")" class="btn btn-xs btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
                 @Html.DropDownList("Linea_Id", null, "Seleziona area", htmlAttributes: new { @id = "ddlinea", @class = "form-control" })
+                Definisce l'appartenenza ai documenti pubblici
                 @Html.ValidationMessageFor(model => model.Linea_Id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -108,15 +109,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Salva" class="btn btn-success" />
+                @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 @section Scripts {
 <script src="Scripts/moment.min.js"></script>
 <script src="Scripts/bootstrap.min.js"></script>
@@ -124,7 +123,6 @@
     $('#pub').change(function () {
         if (this.checked) {
             $('.divpub').hide();
-            $('#ddevento').val("1");
             $('#ddlinea').val("1");
             $('#ddsessione').val("1");
         }

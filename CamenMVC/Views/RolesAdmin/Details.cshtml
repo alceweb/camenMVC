@@ -4,11 +4,14 @@
     ViewBag.Title = "Dettaglio ruolo";
 }
 
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.UserCount utenti nel ruolo @Model.Name</h3>
+<h2>@ViewBag.Title @Model.Name</h2>
+<h3>@ViewBag.UserCount utenti attivi </h3>
 @if (ViewBag.UserCount == 0)
 {
     <p>Nessun utente assegnato a questo ruolo.</p>
+    <span>
+        @Html.ActionLink("Cancella ruolo", "Delete", "RolesAdmin", new { id = ViewBag.Id }, new { @class = "btn btn-danger" })
+    </span>
     <hr />
 }
 
@@ -19,17 +22,19 @@
         <tr>
             <td>
                 <a href="@Url.Action("Edit", "UsersAdmin", new {id = item.Id})" class="h3"><span class="glyphicon glyphicon-pencil text-success"></span></a>
-                @if (File.Exists(@Url.Content("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")))
+                @if (File.Exists(@Server.MapPath("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")))
                 {
-                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")" /> <span class="badge">@item.Email</span><span>@item.Nome @item.Cognome</span>
+                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")" /> <span class="badge">@item.Email</span><span> @item.Nome @item.Cognome</span>
                 }
                 else
                 {
-                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/anonimous.jpg")" /> <span class="badge">@item.Email</span> <span>@item.Nome @item.Cognome</span>
+                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/anonimous.jpg")" /> <span class="badge">@item.Email</span> <span> @item.Nome @item.Cognome</span>
                 }
             </td>
         </tr>
     }
 </table>
+<hr />
+<div>@Html.ActionLink("Torna ai ruoli", "Index", "RolesAdmin", null, new {@class="btn btn-primary" })</div>
 
 

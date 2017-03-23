@@ -4,34 +4,57 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista pagine</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <span class="btn btn-primary"><span class="badge">@ViewBag.PaginasCount</span> Le pagine si creano direttamente dal sottomenu</span>
 </p>
 <table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TestoSmenu.TestoSmenu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model=>model.Pagina_Id)
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Pubblicato</th>
+            <th>Id</th>
+            <th>
+                Menu
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)
+{
+@*controllo se la pagine è punbblicata e cambio il colore del testo*@
+var testo = "";
+if (item.Pubblica == true)
+{
+    testo = "text-success";
+}
+else
+{
+    testo = "text-danger";
+}
+    <tr class="@testo">
         <td>
-            @Html.DisplayFor(modelItem => item.TestoSmenu.TestoSmenu)
+            @if(item.Pubblica == true)
+            {
+                <span class="fa fa-thumbs-o-up"></span>
+            }
+            else
+            {
+                <span class="fa fa-thumbs-o-down"></span>
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Pagina_Id)
+            @item.Pagina_Id
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Pagina_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Pagina_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Pagina_Id })
+                <span>@item.TestoSmenu.TestoMenu.TestoMenu <span class="fa fa-arrow-right"></span> @Html.DisplayFor(modelItem => item.TestoSmenu.TestoSmenu)</span>
+        </td>
+        <td>
+            @Html.ActionLink("Modifica", "Edit", new { id = item.Pagina_Id }, new { @class = "btn btn-xs btn-success" })
+            @Html.ActionLink("Dettagli", "Details", new { id = item.Pagina_Id }, new { @class = "btn btn-xs btn-primary" })
+            @Html.ActionLink("Cancella", "Delete", new { id = item.Pagina_Id }, new { @class = "btn btn-xs btn-danger" })
         </td>
     </tr>
 }

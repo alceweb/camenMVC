@@ -17,9 +17,9 @@ namespace CamenMVC.Controllers
         // GET: Sessionis
         public ActionResult Index()
         {
-            var doc = db.Documentis.ToList();
-            ViewBag.Doc = doc;
-            return View(db.Sessionis.ToList());
+            var sessioni = db.Sessionis.OrderBy(s=>s.Sessione).ToList();
+            ViewBag.SessioniCount = sessioni.Count();
+            return View(sessioni);
         }
 
         // GET: Sessionis/Details/5

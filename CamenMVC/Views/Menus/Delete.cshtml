@@ -1,7 +1,7 @@
 ﻿@model CamenMVC.Models.Menu
 
 @{
-    ViewBag.Title = "Cancella";
+    ViewBag.Title = "Cancella menu";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -35,13 +35,13 @@
         </dd>
 
     </dl>
-
+    <hr />
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Cancella" class="btn btn-danger" /> 
-            <a href="@Url.Action("Index", "Menus")" class="btn btn-success">Annulla</a>
+            <input type="submit" value="Cancella" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

@@ -16,38 +16,42 @@
     </div>
 </div>
 <table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria.Categoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Evento.Evento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Linea.Linea)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sessione.Sessione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Oratore)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titolo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Data)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Riferimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lingua)
-        </th>
-        <th>
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Evento.Evento)
+            </th>
+            <th class="alert-success">
+                <span>@Html.DisplayNameFor(model => model.Linea.Linea)</span>
+                <a href="#nogo" title="Definisce l'appartenenza ai documenti pubblici"><span class="fa fa-info-circle"></span></a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sessione.Sessione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oratore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Riferimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lingua)
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
 
 @foreach (var item in Model) {
     //evidenzio i documenti che sono pubblici
@@ -58,7 +62,6 @@
     }
     <tr class="@cl">
         <td>
-            @item.Linea_Id
             @Html.DisplayFor(modelItem => item.Categoria.Categoria)
         </td>
         <td>

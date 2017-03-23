@@ -1,11 +1,11 @@
 ﻿@model CamenMVC.Models.Menu
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Dettagli menu";
 }
 
-<h2>Details</h2>
-
+<h2>@ViewBag.Title</h2>
+<hr />
 <div>
     <h4>Menu</h4>
     <hr />
@@ -36,7 +36,8 @@
 
     </dl>
 </div>
+<hr />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Menu_Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.Menu_Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
 </p>

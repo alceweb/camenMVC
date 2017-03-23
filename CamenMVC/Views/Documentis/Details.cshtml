@@ -4,11 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Dettagli documento</h2>
+<hr />
 
 <div>
-    <h4>Documenti</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Categoria.Categoria)
@@ -71,7 +70,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Data)
+            @Model.Data.ToString("dd/MM/yyyy")
         </dd>
 
         <dt>
@@ -99,7 +98,7 @@
         </dd>
 
     </dl>
-</div>
+</div><hr/>
 <p>
     @Html.ActionLink("Modifica", "Edit", new { id = Model.Documento_Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })

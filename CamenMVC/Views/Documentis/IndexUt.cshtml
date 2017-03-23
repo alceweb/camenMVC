@@ -5,7 +5,7 @@
     ViewBag.Title = "Biblioteca riservata";
 }
 
-<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" /><h2>@ViewBag.Title</h2><hr/>
+<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" /><h2>Biblioteca Scuola Sintotermico Camen</h2><hr/>
 <input id="btncat" class="btn btn-primary" type="button" value="Ricerca per categorie" />
 <input id="btnfiltro" class="btn btn-default" type="button" value="Ricerca globale" />
 @*Inizio Rierca per categoria*@
@@ -56,42 +56,42 @@
 
                     </th>
                 </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categoria.Categoria)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Evento.Evento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Linea.Linea)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sessione.Sessione)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Oratore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Titolo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descrizione)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Data)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Riferimento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lingua)
+                    </th>
+                    <th>
+                    </th>
+                </tr>
 
             </thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Categoria.Categoria)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Evento.Evento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Linea.Linea)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Sessione.Sessione)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Oratore)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Titolo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descrizione)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Data)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Riferimento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lingua)
-                </th>
-                <th>
-                </th>
-            </tr>
             @foreach (var item in Model)
             {
             <tr>

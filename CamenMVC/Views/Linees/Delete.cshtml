@@ -1,10 +1,10 @@
 ﻿@model CamenMVC.Models.Linee
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Cancella area";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3>Sei sicuro di voler cancellare l'area?</h3>
 <div>
@@ -19,13 +19,13 @@
         </dd>
 
     </dl>
-
+    <hr />
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Cancella" class="btn btn-danger" />
+            @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

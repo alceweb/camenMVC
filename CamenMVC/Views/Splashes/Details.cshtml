@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Dettagli pagina splash</h2>
 
 <div>
-    <h4>Splash</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -39,7 +38,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DataI)
+            @Model.DataI.ToString("dd/MMM/yyyy")
         </dd>
 
         <dt>
@@ -47,11 +46,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DataF)
+            @Model.DataF.ToString("dd/MMM/yyyy")
         </dd>
 
     </dl>
 </div>
+<hr />
 <p>
     @Html.ActionLink("Modifica", "Edit", new { id = Model.Splash_Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Torna alla lista", "Index", null, new {@class="btn btn-primary" })

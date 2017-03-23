@@ -17,9 +17,9 @@ namespace CamenMVC.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            var doc = db.Documentis.ToList();
-            ViewBag.Doc = doc;
-            return View(db.Categories.ToList());
+            var categorie = db.Categories.ToList();
+            ViewBag.CategorieCount = categorie.Count();
+            return View(categorie);
         }
 
         // GET: Categories/Details/5

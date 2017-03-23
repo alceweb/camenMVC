@@ -5,7 +5,9 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
+<h2><a href="@Url.Action("Create", "Linees")" class="btn btn-primary"><span class="badge">@ViewBag.LineeCount</span> Nuovo</a>
+</h2>
+<hr/>
 <table class="table table-hover">
 @foreach (var item in Model) {
     <tr>
@@ -38,4 +40,5 @@
 }
 
 </table>
+<hr />
 @Html.ActionLink("Fatto", "Index", "Documentis", null, new { @class = "btn btn-success" })

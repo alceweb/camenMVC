@@ -1,18 +1,15 @@
 ﻿@model CamenMVC.Models.SottoMenu
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modifica sottomenu";
 }
-
-<h2>Edit</h2>
-
+<h2>Modifica sottomenu</h2>
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SottoMenu</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Smenu_Id)
 
@@ -49,27 +46,47 @@
                 </div>
             </div>
         </div>
-
+        <hr/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Salva" class="btn btn-success" />
+                @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
 }
 <hr/>
 
+@*Viasualizzo le pagine agganciate al sottomenu*@
 <h3><span class="badge">@Model.Paginas.Count()</span> Pagine agganciate al sottomenu</h3>
 <table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Pubblicata</th>
+            <th>Contenuto</th>
+        </tr>
+    </thead>
     
     @foreach (var item in Model.Paginas.OrderBy(p=>p.Posizione))
     {
         <tr>
             <td>
-                <a href="@Url.Action("Edit","Paginas", new {id = item.Pagina_Id })" class="glyphicon glyphicon-pencil text-success" title="MOdifica pagina"></a>
+                <a href="@Url.Action("Edit","Paginas", new {id = item.Pagina_Id })" class="glyphicon glyphicon-pencil text-success" title="Modifica pagina"></a>
             </td>
             <td>
                 <a href="@Url.Action("Delete","Paginas", new {id = item.Pagina_Id, sm = Model.Smenu_Id })" class="glyphicon glyphicon-remove text-danger" title="Cancella pagina"></a>
+            </td>
+            <td>
+                @if(item.Pubblica == true)
+                {
+                    <span class="fa fa-thumbs-o-up text-success fa-2x"></span>
+                }
+                else
+                {
+                    <span class="fa fa-thumbs-o-down text-danger fa-2x"></span>
+                }
             </td>
             <td>
                 <span> @Html.Raw(item.Contenuo)</span>

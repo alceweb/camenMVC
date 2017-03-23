@@ -160,7 +160,7 @@ namespace CamenMVC.Controllers
                 // Invio la mail per avvisare che si è iscritto un utente
                 MailMessage message = new MailMessage(
                     "webservice@camen.org",
-                    "cesare@cr-consult.eu",
+                    "cesare@cr-consult.eu,giuseppe.fortini@gmail.com",
                     "Nuovo iscritto al sito camen.org",
                     "Il giorno " + DateTime.Now + "<br/><strong>" +
                     user.Nome + " " +

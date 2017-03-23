@@ -9,40 +9,41 @@
 {
     @Html.AntiForgeryToken()
     <hr />
+    <span class="badge">Campi obbligatori *</span>
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label"})
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Email) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Questo sarà anche il tuo username" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Password) *</span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.ConfirmPassword) *</span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
     <hr class="hr1"/>
     <div class="form-group">
-        @Html.LabelFor(m => m.Nome, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Nome) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Cognome, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Cognome) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Cognome, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Indirizzo, new { @class = "col-md-2 control-label" })
+        <span class="col-md-2 control-label">@Html.LabelFor(m => m.Indirizzo) *</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Indirizzo, new { @class = "form-control" })
         </div>
@@ -72,6 +73,8 @@
                 @Html.RadioButtonFor(m => m.Ruolo, "Insegnante") Insegnante
                 @Html.RadioButtonFor(m => m.Ruolo, "Studente") Studente
                 @Html.RadioButtonFor(m => m.Ruolo, "Congressista") Congressista
+                @Html.RadioButtonFor(m => m.Ruolo, "Socio") Socio
+                @Html.RadioButtonFor(m => m.Ruolo, "Docente") Docente
                 @Html.RadioButtonFor(m => m.Ruolo, "Altro", new { @checked = "checked" }) Altro
             </div>
         </div>
@@ -87,12 +90,10 @@
         <div class="col-md-10">
             <h4>
                 @Html.CheckBoxFor(m => m.Privacy)
-                <a href="http://www.crctest.cloud/Content/Documenti/Privacy-V1.pdf?id=21" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
                 <br />Dichiaro di aver preso visione del <a href="http://www.crctest.cloud/Content/Documenti/Privacy-V1.pdf?id=21" target="_blank"> documento della privacy</a>
             </h4>
         </div>
     </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-success" value="Invia" />

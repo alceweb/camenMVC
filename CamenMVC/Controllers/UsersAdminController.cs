@@ -66,8 +66,8 @@ namespace CamenMVC.Controllers
         [Authorize]
         public ActionResult IndexUs()
         {
-            var uid = User.Identity.GetUserId();
-            ViewBag.Utente = User.Identity.GetUserName();
+            var utente = User.Identity.GetUserId();
+            ViewBag.uid = utente;
             return View();
         }
 
@@ -161,6 +161,7 @@ namespace CamenMVC.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                UserName = user.UserName,
                 Nome = user.Nome,
                 Cognome = user.Cognome,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
@@ -177,7 +178,7 @@ namespace CamenMVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,Nome,Cognome")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,UserName,Nome,Cognome")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -188,6 +189,7 @@ namespace CamenMVC.Controllers
                 }
 
                 user.UserName = editUser.Email;
+                user.UserName = editUser.UserName;
                 user.Email = editUser.Email;
                 user.Nome = editUser.Nome;
                 user.Cognome = editUser.Cognome;

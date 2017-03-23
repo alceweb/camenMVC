@@ -19,8 +19,9 @@ namespace CamenMVC.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var paginas = db.Paginas.Include(p => p.TestoSmenu).OrderBy(p=>p.Posizione);
-            return View(paginas.ToList());
+            var paginas = db.Paginas.Include(p => p.TestoSmenu).Include(m=>m.TestoSmenu.TestoMenu).OrderBy(p=> new { p.TestoSmenu.TestoMenu.TestoMenu, p.TestoSmenu.TestoSmenu }).ToList();
+            ViewBag.PaginasCount = paginas.Count();
+            return View(paginas);
         }
 
         public ActionResult IndexUt (int? id)
@@ -33,13 +34,25 @@ namespace CamenMVC.Controllers
             ViewBag.Intestazione = intestazione;
             var smenuId = db.SottoMenus.Where(s => s.Smenu_Id == id).Select(s => s.Smenu_Id);
             ViewBag.SmenuId = smenuId;
-            var pagina = db.Paginas.OrderBy(p=>p.Posizione).Where(p => p.Smenu_Id == id).ToList();
-            //Pagina pagina = db.Paginas.Find(id);
-            if (pagina == null)
+            //Se l'utente è admin visualizzo anche le pagine non pubblicate'
+            if (User.IsInRole("Admin"))
             {
-                return HttpNotFound();
+                var pagina = db.Paginas.OrderBy(p => p.Posizione).Where(p => p.Smenu_Id == id).ToList();
+                if (pagina == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pagina);
             }
-            return View(pagina);
+            else
+            {
+                var pagina = db.Paginas.OrderBy(p => p.Posizione).Where(p => p.Smenu_Id == id && p.Pubblica == true).ToList();
+                if (pagina == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pagina);
+            }
         }
 
         // GET: Paginas/Details/5
@@ -71,7 +84,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude ="Contenuo")] Pagina pagina)
+        public ActionResult Create([Bind(Include = "Pagina_Id,Smenu_Id,Posizione,Pubblica", Exclude ="Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];
@@ -96,7 +109,7 @@ namespace CamenMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAd([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude = "Contenuo")] Pagina pagina)
+        public ActionResult CreateAd([Bind(Include = "Pagina_Id,Smenu_Id,Posizione,Pubblica", Exclude = "Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];
@@ -126,7 +139,8 @@ namespace CamenMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Smenu_Id = new SelectList(db.SottoMenus, "Smenu_Id", "TestoSmenu", pagina.Smenu_Id);
+            var smenu = db.SottoMenus.Include(m => m.TestoMenu.TestoMenu).Select(s => new { ID = s.Smenu_Id, Smenu = s.TestoMenu.TestoMenu + "=>" + s.TestoSmenu });
+            ViewBag.Smenu_Id = new SelectList(smenu, "ID", "Smenu", pagina.Smenu_Id);
             return View(pagina);
         }
 
@@ -135,7 +149,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Pagina_Id,Smenu_Id,Posizione", Exclude ="Contenuo")] Pagina pagina)
+        public ActionResult Edit([Bind(Include = "Pagina_Id,Smenu_Id,Posizione,Pubblica", Exclude ="Contenuo")] Pagina pagina)
         {
             FormCollection collection = new FormCollection(Request.Unvalidated().Form);
             pagina.Contenuo = collection["Contenuo"];
@@ -173,7 +187,7 @@ namespace CamenMVC.Controllers
             Pagina pagina = db.Paginas.Find(id);
             db.Paginas.Remove(pagina);
             db.SaveChanges();
-            return RedirectToAction("Edit", "Sotoomenus", new {id = Request.QueryString["sm"] });
+            return RedirectToAction("Index", "Paginas");
         }
 
         protected override void Dispose(bool disposing)
