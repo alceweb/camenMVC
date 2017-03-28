@@ -5,10 +5,10 @@
     ViewBag.Title = "Biblioteca riservata";
 }
 
-<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" /><h2>Biblioteca Scuola Sintotermico Camen</h2><hr/>
+<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" /><h2>Biblioteca Scuola Sintotermico Camen</h2>
 <input id="btncat" class="btn btn-primary" type="button" value="Ricerca per categorie" />
 <input id="btnfiltro" class="btn btn-default" type="button" value="Ricerca globale" />
-@*Inizio Rierca per categoria*@
+@*Inizio Ricerca per categoria*@
 <table id="cat" class="table table-hover">
     @foreach (var group in Model.GroupBy(item => item.Categoria))
     {

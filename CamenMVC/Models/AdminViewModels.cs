@@ -11,7 +11,7 @@ namespace CamenMVC.Models
     {
         public string Id { get; set; }
         [Required(AllowEmptyStrings = false)]
-        [Display(Name = "RoleName")]
+        [Display(Name = "Nome ruolo")]
         public string Name { get; set; }
     }
 

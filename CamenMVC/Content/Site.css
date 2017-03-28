@@ -262,3 +262,17 @@ textarea {
     transform: translate(-3em,0);
     right:0px;
 }
+
+.table-menu{
+
+}
+.table-menu td{
+    vertical-align:top;
+    padding:1px 5px 1px 5px;
+    background-color:#e5e5e5;
+    border:solid thin #fff;
+}
+.table-menu td span span{
+    color:#337ab7;
+    font-size:0.8em;
+}

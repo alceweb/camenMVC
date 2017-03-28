@@ -1,32 +1,70 @@
 ﻿@model IEnumerable<CamenMVC.Models.Documenti>
 @using Microsoft.AspNet.Identity
 
-<h2>Sezione documenti</h2>
-<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
-<a href="@Url.Action("Eventi", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"] })" class="label label-primary">Eventi</a>
-<a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"], cat = Request.QueryString["cat"],
-        evento = Request.QueryString["evento"],
-        eve = Request.QueryString["eve"],
-        linea = Request.QueryString["linea"],
-        lin = Request.QueryString["lin"]
-    })" class="label label-primary">Aree</a>
-<a href="@Url.Action("Sessioni", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
-        cat = Request.QueryString["cat"],
-        evento = Request.QueryString["evento"],
-        eve = Request.QueryString["eve"],
-        linea = Request.QueryString["linea"],
-        lin = Request.QueryString["lin"],
-        sessione = Request.QueryString["sessione"],
-        ses = Request.QueryString["ses"]
-    })" class="label label-primary">Sessioni</a>
+<h2>Biblioteca Scuola Sintotermico Camen</h2>
+<h4>Ricerca per categorie</h4>
+@*Menu top navigazione ricerva files*@
+<table class="table-menu">
+    <tr>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categoria</a><br />
+                    <span>@Request.QueryString["cat"]</span>
+                </label>
+            </span>
+        </td>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("Eventi", "Documentis", new {id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"], cat = Request.QueryString["cat"] })" class="label label-primary">Evento</a><br />
+                    <span>@Request.QueryString["eve"]</span>
+                </label>
+            </span>
+        </td>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
+                            cat = Request.QueryString["cat"],
+                            evento = Request.QueryString["evento"],
+                            eve = Request.QueryString["eve"],
+                            linea = Request.QueryString["linea"],
+                            lin = Request.QueryString["lin"]
+                        })" class="label label-primary">Area</a><br />
+                    <span>@Request.QueryString["lin"]</span>
+                </label>
+            </span>
 
-<label class="label label-success">Files</label>
+        </td>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("Sessioni", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
+                            cat = Request.QueryString["cat"],
+                            evento = Request.QueryString["evento"],
+                            eve = Request.QueryString["eve"],
+                            linea = Request.QueryString["linea"],
+                            lin = Request.QueryString["lin"],
+                            sessione = Request.QueryString["sessione"],
+                            ses = Request.QueryString["ses"]
+                        })" class="label label-primary">Sessione</a><br />
+                    <span>@Request.QueryString["ses"]</span>
+                </label>
+            </span>
+
+        </td>
+
+        <td>
+            <label class="label label-success">Files</label>
+
+        </td>
+    </tr>
+</table>
+
 <table class="table table-hover">
         <tr>
-            <th colspan="4">
-                <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"] - @Request.QueryString["lin"] - @Request.QueryString["ses"]</div>
-            </th>
-            <th colspan="3">
+            <th colspan="7">
                 <h4 class="label label-info pull-right">
                     Puoi scaricare solo i file con l'icona <span class="fa fa-download"></span> download
                     <a class="fa fa-info-circle" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

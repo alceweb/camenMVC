@@ -112,12 +112,12 @@ namespace CamenMVC.Controllers
             if (ModelState.IsValid)
             {
                 var filename = Path.GetFileName(NomeFile.FileName);
-                var path = Path.Combine(Server.MapPath("~/Content/Documenti/"), filename);
-                NomeFile.SaveAs(path);
                 documenti.NomeFile = filename;
                 db.Documentis.Add(documenti);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var path = Path.Combine(Server.MapPath("~/Content/Documenti/"), documenti.Documento_Id + "_" + filename);
+                NomeFile.SaveAs(path); 
+              return RedirectToAction("Index");
             }
 
             ViewBag.Categoria_Id = new SelectList(db.Categories, "Categoria_Id", "Categoria", documenti.Categoria_Id);
@@ -128,7 +128,7 @@ namespace CamenMVC.Controllers
         }
 
         // GET: Documentis/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit1(int? id)
         {
             if (id == null)
             {
@@ -143,7 +143,7 @@ namespace CamenMVC.Controllers
             ViewBag.Evento_Id = new SelectList(db.Eventis, "Evento_Id", "Evento", documenti.Evento_Id);
             ViewBag.Linea_Id = new SelectList(db.Linees, "Linea_Id", "Linea", documenti.Linea_Id);
             ViewBag.Sessione_Id = new SelectList(db.Sessionis, "Sessione_Id", "Sessione", documenti.Sessione_Id);
-            var documentoRuoli = db.DocRuolis.Where(d => d.Documento_Id == id).Select(e=>e.RuoloId).ToList();
+            var documentoRuoli = db.DocRuolis.Where(d => d.Documento_Id == id).Select(e => e.RuoloId).ToList();
             return View(new EditDocViewModel()
             {
                 Documento_Id = documenti.Documento_Id,
@@ -173,7 +173,7 @@ namespace CamenMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, [Bind(Include = "Documento_Id,RuoloId")] DocRuoli docRuoli, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Descrizione,Data,Riferimento,Lingua,NomeFile")] EditDocViewModel editDoc, params string[] selectedRole)
+        public ActionResult Edit1(int? id, HttpPostedFileBase File, [Bind(Include = "Documento_Id,RuoloId")] DocRuoli docRuoli, [Bind(Include = "Documento_Id,Categoria_Id,Evento_Id,Linea_Id,Sessione_Id,Oratore,Titolo,Descrizione,Data,Riferimento,Lingua,NomeFile")] EditDocViewModel editDoc, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -218,10 +218,22 @@ namespace CamenMVC.Controllers
                     db.DocRuolis.Add(docRuoli);
                     db.SaveChanges();
                 }
+                //Se è selezionato un file sovrascivo quello esistente
+                if(File != null)
+                {
+                var path = Path.Combine(Server.MapPath("~/Content/Documenti/"), documenti.Documento_Id + "_" + editDoc.NomeFile);
+                    System.IO.File.Delete(path);
+                File.SaveAs(path);
+                }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Edit1", "Documentis");
         }
+
+
+
+
+
 
         // GET: Documentis/Delete/5
         public ActionResult Delete(int? id)

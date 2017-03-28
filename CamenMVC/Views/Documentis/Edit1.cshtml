@@ -1,22 +1,22 @@
 ﻿@model CamenMVC.Models.EditDocViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit1";
 }
 
 <h2>Modifica documento</h2>
 <hr />
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit1", "Documentis", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Documento_Id)
+        @Html.HiddenFor(model => model.NomeFile)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Categoria_Id, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Categoria_Id, "Categoria_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Categoria_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Categoria_Id, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Evento_Id, "Evento", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Evento_Id, "Evento_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Evento_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Evento_Id, "", new { @class = "text-danger" })
@@ -32,16 +32,16 @@
         </div>
 
         <div class="form-group label-success">
-            @Html.LabelFor(model => model.Linea_Id, "Area", htmlAttributes: new { @class = "control-label col-md-2 label-success" })
+            @Html.LabelFor(model => model.Linea_Id, "Linea_Id", htmlAttributes: new { @class = "control-label col-md-2 label-success" })
             <div class="col-md-10">
-                @Html.DropDownList("Linea_Id", null, htmlAttributes: new { @class = "form-control" }) 
+                @Html.DropDownList("Linea_Id", null, htmlAttributes: new { @class = "form-control" })
                 Definisce l'appartenenza ai documenti pubblici
                 @Html.ValidationMessageFor(model => model.Linea_Id, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sessione_Id, "Sessione", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Sessione_Id, "Sessione_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Sessione_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sessione_Id, "", new { @class = "text-danger" })
@@ -67,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Descrizione, new {@class = "form-control" })
+                @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -99,10 +99,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NomeFile, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeFile, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeFile, "", new { @class = "text-danger" })
+                <span class="">@Model.NomeFile</span>
+                <input type="file" name="File" id="File" class="btn btn-warning" />
             </div>
         </div>
+
         <div class="form-group">
             <div class="row">
                 @Html.Label("Ruoli", new { @class = "control-label col-md-2" })

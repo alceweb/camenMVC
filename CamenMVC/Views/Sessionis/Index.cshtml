@@ -10,7 +10,11 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink(@item.Sessione, "Edit", new { id = item.Sessione_Id }, new { @class = "glyphicon glyphicon-pencil" })
+            <span>
+                @item.Sessione_Id - 
+                @Html.ActionLink(@item.Sessione, "Edit", new { id = item.Sessione_Id }, new { @class = "glyphicon glyphicon-pencil" })
+                
+                </span>
         </td>
         <td>
             @if (item.Documentis.Count > 0)

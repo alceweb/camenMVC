@@ -224,5 +224,6 @@ namespace CamenMVC.Models
         public DbSet<Documenti> Documentis { get; set; }
         public DbSet<EventiRuoli> EventiRuolis { get; set; }
         public DbSet<DocRuoli> DocRuolis { get; set; }
+
     }
 }

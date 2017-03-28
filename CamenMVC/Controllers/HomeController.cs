@@ -39,7 +39,7 @@ namespace CamenMVC.Controllers
                 MailMessage message = new MailMessage(
                     "webservice@camen.org",
                     "cesare@cr-consult.eu,giuseppe.fortini@gmail.com",
-                    "RIchiesta informazioni dal sito camen.org",
+                    "Richiesta informazioni dal sito camen.org",
                     "Il giorno " + DateTime.Now + "<br/><strong>" +
                     contatti.Nome + " " +
                     contatti.Cognome + "</strong> [" +

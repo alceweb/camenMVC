@@ -29,7 +29,7 @@
                                 @item.Data.ToString("dd-MMM-yyyy")
                             </td>
                             <td>
-                                <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"></a><span> @item.NomeFile</span>
+                                <a href="@Url.Content("~/Content/Documenti/" + item.Documento_Id + "_" + @item.NomeFile)" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"></a><span> @item.NomeFile</span>
                             </td>
                         </tr>
                     }

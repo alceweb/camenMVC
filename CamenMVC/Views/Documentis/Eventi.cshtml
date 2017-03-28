@@ -1,14 +1,24 @@
 ﻿@model IEnumerable<CamenMVC.Models.Documenti>
-<h2>Sezione documenti</h2>
-<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
-<label class="label label-success">Eventi</label>
-<table class="table table-hover">
+<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" />
+<h2>Biblioteca Scuola Sintotermico Camen</h2>
+<h4>Ricerca per categorie</h4>
+@*Menu top navigazione ricerva files*@
+<table class="table-menu">
     <tr>
-        <th>
-            <div class="badge">@Request.QueryString["cat"]</div>
-
-        </th>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary h5">Categoria</a><br />
+                    <span>@Request.QueryString["cat"]</span>
+                </label>
+            </span>
+        </td>
+        <td>
+            <label class="label label-success"><span class="h5">Eventi</span></label><br/>
+        </td>
     </tr>
+</table>
+<table class="table table-hover">
     @foreach (var group in Model.GroupBy(item => item.Evento))
             {
         <tr>

@@ -22,14 +22,25 @@
         <tr>
             <td>
                 <a href="@Url.Action("Edit", "UsersAdmin", new {id = item.Id})" class="h3"><span class="glyphicon glyphicon-pencil text-success"></span></a>
+                </td>
                 @if (File.Exists(@Server.MapPath("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")))
                 {
-                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")" /> <span class="badge">@item.Email</span><span> @item.Nome @item.Cognome</span>
+                    <td>
+                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @item.Id + ".jpg")" /> 
+
+                    </td>
                 }
                 else
                 {
-                    <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/anonimous.jpg")" /> <span class="badge">@item.Email</span> <span> @item.Nome @item.Cognome</span>
+                    <td>
+                        <img class="img-usr" src="@Url.Content("~/Content/Immagini/FotoIscritti/anonimous.jpg")" />
+                        </td>
                 }
+            <td>
+                <span> @item.Nome @item.Cognome  </span>
+            </td>
+            <td>
+                <span class="badge"><span class="fa fa-envelope-o"></span>  @item.Email</span>
             </td>
         </tr>
     }

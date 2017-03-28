@@ -1,22 +1,49 @@
 ﻿@model IEnumerable<CamenMVC.Models.Documenti>
-<h2>Sezione documenti</h2>
-<a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categorie</a>
-<a href="@Url.Action("Eventi", "Documentis", new {id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"] })" class="label label-primary">Eventi</a>
-<a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
-        cat = Request.QueryString["cat"],
-        evento = Request.QueryString["evento"],
-        eve = Request.QueryString["eve"],
-        linea = Request.QueryString["linea"],
-        lin = Request.QueryString["lin"]
-    })" class="label label-primary">Aree</a>
-<label class="label label-success">Sessioni</label>
-<table class="table table-hover">
+<img src="~/Content/Immagini/biblioteca.png" class="img-usr pull-left" />
+<h2>Biblioteca Scuola Sintotermico Camen</h2>
+<h4>Ricerca per categorie</h4>
+@*Menu top navigazione ricerva files*@
+<table class="table-menu">
     <tr>
-        <th>
-            <div class="badge">@Request.QueryString["cat"] - @Request.QueryString["eve"] - @Request.QueryString["lin"]</div>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("IndexUt", "Documentis")" class="label label-primary">Categoria</a><br />
+                    <span>@Request.QueryString["cat"]</span>
+                </label>
+            </span>
+        </td>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("Eventi", "Documentis", new {id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"], cat = Request.QueryString["cat"] })" class="label label-primary">Evento</a><br />
+                    <span>@Request.QueryString["eve"]</span>
+                </label>
+            </span>
+        </td>
+        <td>
+            <span>
+                <label>
+                    <a href="@Url.Action("Linee", "Documentis", new { id = Request.QueryString["categoria"], categoria = Request.QueryString["categoria"],
+                            cat = Request.QueryString["cat"],
+                            evento = Request.QueryString["evento"],
+                            eve = Request.QueryString["eve"],
+                            linea = Request.QueryString["linea"],
+                            lin = Request.QueryString["lin"]
+                        })" class="label label-primary">Area</a><br />
+                    <span>@Request.QueryString["lin"]</span>
+                </label>
+            </span>
 
-        </th>
+        </td>
+        <td>
+            <label class="label label-success">Sessioni</label>
+
+        </td>
     </tr>
+</table>
+
+<table class="table table-hover">
     @foreach (var group in Model.GroupBy(item => item.Sessione))
     {
         <tr>
