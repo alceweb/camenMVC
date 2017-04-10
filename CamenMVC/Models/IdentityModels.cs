@@ -201,6 +201,18 @@ namespace CamenMVC.Models
         public string RuoloId { get; set; }
         
     }
+
+    public class Statistiche
+    {
+        [Key]
+        public int Statistiche_Id { get; set; }
+        public DateTime Data { get; set; }
+        public string Ip { get; set; }
+        public string Pagina { get; set; }
+        public string UId { get; set; }
+        public string UName { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -224,6 +236,7 @@ namespace CamenMVC.Models
         public DbSet<Documenti> Documentis { get; set; }
         public DbSet<EventiRuoli> EventiRuolis { get; set; }
         public DbSet<DocRuoli> DocRuolis { get; set; }
+        public DbSet<Statistiche> Statistiches { get; set; }
 
     }
 }

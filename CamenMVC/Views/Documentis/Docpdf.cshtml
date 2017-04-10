@@ -130,7 +130,7 @@
                 {
                     if (User.IsInRole(itemr.RuoloId))
                     {
-                        <a href="@Url.Content("~/Content/Documenti/" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"> @itemr.RuoloId</span></a>
+                        <a href="@Url.Content("~/Content/Documenti/" + @item.Documento_Id + "_" + @item.NomeFile)?id=@item.Documento_Id" class="fa fa-download fa-2x" title="@item.NomeFile" target="_blank"><span class="h6"> @itemr.RuoloId</span></a>
                     }
                 }
             }

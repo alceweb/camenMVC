@@ -82,6 +82,7 @@ namespace CamenMVC.Controllers
         // POST: Paginas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Pagina_Id,Smenu_Id,Posizione,Pubblica", Exclude ="Contenuo")] Pagina pagina)
@@ -147,6 +148,7 @@ namespace CamenMVC.Controllers
         // POST: Paginas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Pagina_Id,Smenu_Id,Posizione,Pubblica", Exclude ="Contenuo")] Pagina pagina)
@@ -180,6 +182,7 @@ namespace CamenMVC.Controllers
         }
 
         // POST: Paginas/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
