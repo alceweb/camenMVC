@@ -7,18 +7,74 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CamenMVC.Models;
+using Newtonsoft.Json;
+using System.Data.Entity.Core.Objects;
+using Newtonsoft.Json.Converters;
 
 namespace CamenMVC.Controllers
 {
     public class StatistichesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "dd/MMM/yy" };
 
         // GET: Statistiches
         public ActionResult Index()
         {
-            return View(db.Statistiches.ToList());
+            var statistiche = db.Statistiches.ToList();
+            ViewBag.Data = db.Statistiches.OrderByDescending(d => d.Data.Month).ToList();
+            ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches.Where(u => u.UName != "anonimous").OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(s => new { x = s.Key, y = s.Count() }).OrderByDescending(s => s.y).ToList(), _jsonSetting);
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
+                .OrderByDescending(d => d.Data.Month)
+                .GroupBy(d =>  DbFunctions.TruncateTime(d.Data))
+                .Select(s => new { x = s.Key, y = s.Count()})
+                .ToList(), _jsonSetting);
+            ViewBag.StatisticheCount = statistiche.Count();
+            return View(statistiche);
         }
+
+        public ActionResult IndexStat()
+        {
+            try
+            {
+                ViewBag.DataPoints = JsonConvert.SerializeObject(db.Statistiches.OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(s => new { x = s.Key, y = s.Count() }).OrderByDescending(s => s.y).ToList(), _jsonSetting);
+                ViewBag.DataPoints1 = JsonConvert.SerializeObject(db.Statistiches
+                    .OrderByDescending(d => d.Data)
+                    .GroupBy(d => d.Data.Month)
+                    .Select(s => new { x = s.Key, y = s.Count() })
+                    .ToList(), _jsonSetting);
+                return View();
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return View("Error");
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return View("Error");
+            }
+        }
+
+
+        public ActionResult Grafico()
+        {
+            try
+            {
+                var pag = db.Statistiches.GroupBy(p => p.Pagina).ToList();
+                ViewBag.DataPoints = pag;
+                return View(pag);
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return View("Error");
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return View("Error");
+            }
+
+        }
+
 
         // GET: Statistiches/Details/5
         public ActionResult Details(int? id)

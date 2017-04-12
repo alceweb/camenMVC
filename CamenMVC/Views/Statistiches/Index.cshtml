@@ -1,0 +1,118 @@
+﻿@model IEnumerable<CamenMVC.Models.Statistiche>
+
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<h2>Statistiche utilizzo sito @Html.Raw(@ViewBag.DataPointsTot)</h2>
+<button id="btn3" class="btn btn-sm btn-primary"><span class="fa  fa-table"> Numeri</span></button>
+<button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Mesi</span></button>
+<a href="http://camen.org/plesk-stat/webstat/index.html" class="btn btn-sm btn-warning fa fa-podcast" target="_blank"> Avanzate</a><hr />
+@*Visualizzazione statistiche numeriche*@
+<div id="numeri">
+    @*Numero visite per utente*@
+    <div class="row">
+        @*Visite per utente*@
+        <div class="col col-md-12">
+            <h3>Visite per utente</h3>
+            <table class="table table-hover">
+
+                @foreach (var item in Model.OrderByDescending(d => d.Data).GroupBy(d => d.UName).Select(x => new { utente = x.Key, count = x.Count() }).OrderByDescending(x => x.count))
+                {
+                    <tr>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <a href="#nogo" data-toggle="modal" data-target="#@Html.Raw(@item.utente)"><span class="badge"> @item.count</span><span> @Html.Raw(@item.utente) </span></a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="@Html.Raw(@item.utente)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="modal-body">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h3 class="modal-title text-center" id="myModalLabel">@item.utente <span class="text-danger">@item.count accessi</span></h3>
+                                                <h6>Accessi mensili</h6>
+                                                <table class="table table-hover">
+                                                    @foreach (var group in Model.Where(u => u.UName == item.utente).OrderByDescending(d => d.Data).GroupBy(d => d.Data.ToString("MMM-yyyy")))
+                {
+                                                        <tr>
+                                                            <td>
+                                                                <span class="label label-danger">@group.Count()</span>
+
+                                                            </td>
+                                                            <td>
+                                                                <span class="h6">@group.Key</span>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+    <hr />
+</div>
+@*Visualizzazione grafici*@
+<div id="chartContainer"></div>
+
+<script type="text/javascript">
+    //Nascondo i grafici all'apertura della pagina
+    $(document).ready(function () {
+        $('#numeri').show();
+        $('#chartContainer').hide();
+    });
+    //btn3 visualizza grafico numeri
+    $('#btn3').click(function () {
+        $('#numeri').show();
+        $('#chartContainer').hide();
+    });
+    //btn2 visualizza grafico mesi
+    $('#btn2').click(function () {
+        $('#numeri').hide();
+        $('#chartContainer').show();
+        var result = @Html.Raw(ViewBag.DataPoints1);
+        var dataPoints =[];
+        for (var i = 0; i < result.length; i++)
+        {
+            dataPoints.push({label:result[i].x, y:result[i].y});
+        }
+        var chart1 = new CanvasJS.Chart("chartContainer",{
+            title:{
+                text: "Accessi mensili",
+                fontSize: 30
+            },
+            animationEnabled: true,
+            axisX: {
+
+                gridColor: "Silver",
+                tickColor: "silver",
+                valueFormatString: "DDD"
+
+            },
+            legend: {
+                verticalAlign: "center",
+                horizontalAlign: "right"
+            },
+            data: [
+            {
+                type: "line",
+                dataPoints: dataPoints,
+            }
+            ]
+        });
+        chart1.render();
+    });
+
+</script>

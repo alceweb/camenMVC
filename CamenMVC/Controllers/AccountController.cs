@@ -16,6 +16,7 @@ namespace CamenMVC.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -67,7 +68,7 @@ namespace CamenMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, [Bind(Include = "Statistiche_Id,Data,Ip,Pagina,UId,UName")] Statistiche statistiche)
         {
             if (!ModelState.IsValid)
             {
@@ -80,6 +81,18 @@ namespace CamenMVC.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (model.Email != "cesare@cr-consult.eu")
+                    {
+                    statistiche.Data = DateTime.Now;
+                    statistiche.Ip = Request.UserHostAddress;
+                    statistiche.Pagina = returnUrl;
+                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
+                    statistiche.UName = user.Nome + user.Cognome;
+                    statistiche.UId = user.Id;
+                    db.Statistiches.Add(statistiche);
+                    db.SaveChanges();
+
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -263,6 +263,30 @@ textarea {
     right:0px;
 }
 
+.docus {
+    position: fixed;
+    bottom: 5%;
+    right: -20px;
+    transition: all ease 1s;
+}
+
+    .docus ul {
+        list-style: none;
+    }
+
+    .docus img {
+        opacity: 0.5;
+        right: -20px;
+        transition: all ease 1s;
+        height: 60px
+    }
+
+        .docus img:hover {
+            opacity: 1;
+            transform: translate(-2em,0);
+            right: -30px;
+        }
+
 .table-menu{
 
 }
