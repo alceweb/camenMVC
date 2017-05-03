@@ -22,7 +22,7 @@
                     <div class="well">
                         @foreach (var item1 in item.Documentis)
                         {
-                            <div><a href="@Url.Action("Edit", "Documentis", new {id = @item1.Documento_Id})" title="@item1.Descrizione"> @item1.NomeFile</a></div>
+                            <div><a href="@Url.Action("Edit1", "Documentis", new {id = @item1.Documento_Id})" title="@item1.Descrizione"> @item1.NomeFile</a></div>
                         }
                     </div>
                 </div>

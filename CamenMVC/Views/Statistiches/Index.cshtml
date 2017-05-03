@@ -7,7 +7,7 @@
 
 <h2>Statistiche utilizzo sito @Html.Raw(@ViewBag.DataPointsTot)</h2>
 <button id="btn3" class="btn btn-sm btn-primary"><span class="fa  fa-table"> Numeri</span></button>
-<button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Mesi</span></button>
+<button id="btn2" class="btn btn-sm btn-primary"><span class="fa  fa-line-chart"> Accessi</span></button>
 <a href="http://camen.org/plesk-stat/webstat/index.html" class="btn btn-sm btn-warning fa fa-podcast" target="_blank"> Avanzate</a><hr />
 @*Visualizzazione statistiche numeriche*@
 <div id="numeri">
@@ -78,7 +78,7 @@
         $('#numeri').show();
         $('#chartContainer').hide();
     });
-    //btn2 visualizza grafico mesi
+    //btn2 visualizza grafico accessi
     $('#btn2').click(function () {
         $('#numeri').hide();
         $('#chartContainer').show();
@@ -89,8 +89,9 @@
             dataPoints.push({label:result[i].x, y:result[i].y});
         }
         var chart1 = new CanvasJS.Chart("chartContainer",{
-            title:{
-                text: "Accessi mensili",
+            zoomEnabled: true,
+            title: {
+                text: "Accessi",
                 fontSize: 30
             },
             animationEnabled: true,
@@ -107,7 +108,7 @@
             },
             data: [
             {
-                type: "line",
+                type: "spline",
                 dataPoints: dataPoints,
             }
             ]

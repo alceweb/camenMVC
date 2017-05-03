@@ -186,6 +186,15 @@ namespace CamenMVC.Controllers
                 ViewBag.Evento_Id = new SelectList(db.Eventis, "Evento_Id", "Evento", documenti.Evento_Id);
                 ViewBag.Linea_Id = new SelectList(db.Linees, "Linea_Id", "Linea", documenti.Linea_Id);
                 ViewBag.Sessione_Id = new SelectList(db.Sessionis, "Sessione_Id", "Sessione", documenti.Sessione_Id);
+                //Se è selezionato un file lo copio nella cartellla documenti e cancello quello esistente
+                if(File != null)
+                {
+                var filename = Path.GetFileName(File.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/Documenti/"), documenti.Documento_Id + "_" + filename);
+                    var path1 = Path.Combine(Server.MapPath("~/Content/Documenti/"), documenti.Documento_Id + "_" + editDoc.NomeFile);
+                    System.IO.File.Delete(path1);
+                File.SaveAs(path);
+                }
                 //Assegno i campi del modelview al db e li salvo
                 documenti.Documento_Id = editDoc.Documento_Id;
                 documenti.Categoria_Id = editDoc.Categoria_Id;
@@ -198,7 +207,16 @@ namespace CamenMVC.Controllers
                 documenti.Data = editDoc.Data;
                 documenti.Riferimento = editDoc.Riferimento;
                 documenti.Lingua = editDoc.Lingua;
-                documenti.NomeFile = editDoc.NomeFile;
+                //imposto il nome file in base a se c'è un file selezionato nel input file
+                if(File != null)
+                {
+                    var filename = Path.GetFileName(File.FileName);
+                documenti.NomeFile = filename;
+                }
+                else
+                {
+                    documenti.NomeFile = editDoc.NomeFile;
+                }
                 db.Entry(documenti).State = EntityState.Modified;
                 db.SaveChanges();
                 //Filtro documentoRuoli e cancello quelli relativi al documento
@@ -217,13 +235,6 @@ namespace CamenMVC.Controllers
                     docRuoli.RuoloId = item.ToString();
                     db.DocRuolis.Add(docRuoli);
                     db.SaveChanges();
-                }
-                //Se è selezionato un file sovrascivo quello esistente
-                if(File != null)
-                {
-                var path = Path.Combine(Server.MapPath("~/Content/Documenti/"), documenti.Documento_Id + "_" + editDoc.NomeFile);
-                    System.IO.File.Delete(path);
-                File.SaveAs(path);
                 }
                 return RedirectToAction("Index");
             }

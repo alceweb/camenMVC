@@ -256,9 +256,9 @@ namespace CamenMVC.Controllers
                     string code1 = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                     var callbackUrl1 = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code1 }, protocol: Request.Url.Scheme);
                     var message1 = new MailMessage();
-                    message1.From = new MailAddress("webservice@cr-consult.it");
+                    message1.From = new MailAddress("webservice@camen.org");
                     message1.To.Add(new MailAddress(model.Email));
-                    message1.Subject = "Reimposta password www.crctest.cloud";
+                    message1.Subject = "Reimposta password www.camen.org";
                     message1.Body = "Per reimpostare la password, fare clic sul collegamento qui sotto <br/><br/>" + callbackUrl1;
                     message1.IsBodyHtml = true;
                     using (var smtp = new SmtpClient())

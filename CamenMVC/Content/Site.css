@@ -39,6 +39,16 @@ textarea {
 .img-logo-header{
     width:50px;
 }
+
+.img-logo-footer{
+    height:30px;
+}
+@media (max-width: 480px) {
+.img-logo-footer{
+    display:none;
+}
+
+}
 .img-logo{
     max-width:800px;
     width:80%;

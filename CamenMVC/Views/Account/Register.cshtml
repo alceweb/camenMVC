@@ -9,6 +9,14 @@
 {
     @Html.AntiForgeryToken()
     <hr />
+    <div class="well well-sm">
+        <span class="label label-danger">Attenzione</span>
+        <p >
+            La password dovrà contenere almeno una lettera maiuscola, almeno una lettera minuscola, almeno una cifra ed almeno un carattere speciale (. , ; : $ & % ...) ed avere in totale di almeno 6 caratteri.<br /><br />
+            <em>Password must have at least one uppercase letter, at least one lowercase letter,  al least one digit and at least one special character (. , ; : $ & % ...)  and have a total of at least 6 characters.</em>
+        </p><br />
+
+    </div>
     <span class="badge">Campi obbligatori *</span>
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -94,6 +102,16 @@
             </h4>
         </div>
     </div>
+        <div class="col-md-10">
+            <div class="well well-sm">
+                <p >
+                    A registrazione avvenuta potrete accedere all’area riservata ma non vedrete nessuno dei contenuti presenti.  Entro pochi giorni riceverete una email di attivazione della registrazione, dopo di che potrete accedere alle pagine desiderate.<br /><br />
+                    <em>After Registration, you will be able to access to the reserved area but you will not see any content. Whitin few days you will receive a registration confirmation email, after which you will be enabled to access the desired pages.</em>
+
+                </p>
+
+            </div>
+        </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-success" value="Invia" />
