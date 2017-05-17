@@ -60,6 +60,9 @@ namespace CamenMVC.Models
 
         [Display(Name = "Ricordami")]
         public bool RememberMe { get; set; }
+
+        [Display(Name = "Bloccato")]
+        public bool Bloccato { get; set; }
     }
 
     public class RegisterViewModel
@@ -73,12 +76,18 @@ namespace CamenMVC.Models
         [Required]
         [Display(Name ="Indirizzo")]
         public string Indirizzo { get; set; }
+        [Display(Name = "Città")]
+        public string Città { get; set; }
+        [Display(Name = "CAP")]
+        public string CAP { get; set; }
         [Display(Name ="Telefono")]
         public string Telefono { get; set; }
         [Display(Name ="Professione")]
         public string Professione { get; set; }
         [Display(Name ="Organizzazione di appartenenza")]
         public string Organizzazione { get; set; }
+        [Display(Name = "Bloccato")]
+        public bool Bloccato { get; set; }
         [Display(Name="Note alla registrazione")]
         public string Note { get; set; }
         [Required]

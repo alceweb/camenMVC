@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Drawing;
+using System.Web.Helpers;
 
 namespace CamenMVC.Controllers
 {
@@ -164,6 +165,13 @@ namespace CamenMVC.Controllers
                 UserName = user.UserName,
                 Nome = user.Nome,
                 Cognome = user.Cognome,
+                Indirizzo = user.Indirizzo,
+                Città = user.Città,
+                CAP = user.CAP,
+                Telefono = user.Telefono,
+                Professione = user.Professione,
+                Organizzazione = user.Organizzazione,
+                Bloccato = user.Bloccato,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
@@ -178,7 +186,7 @@ namespace CamenMVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,UserName,Nome,Cognome")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,UserName,Nome,Cognome,Indirizzo,Città,CAP,Professione,Organizzazione,Bloccato")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -193,6 +201,13 @@ namespace CamenMVC.Controllers
                 user.Email = editUser.Email;
                 user.Nome = editUser.Nome;
                 user.Cognome = editUser.Cognome;
+                user.Indirizzo = editUser.Indirizzo;
+                user.Città = editUser.Città;
+                user.CAP = editUser.CAP;
+                user.Telefono = editUser.Telefono;
+                user.Professione = editUser.Professione;
+                user.Organizzazione = editUser.Organizzazione;
+                user.Bloccato = editUser.Bloccato;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
@@ -238,13 +253,19 @@ namespace CamenMVC.Controllers
                 Email = user.Email,
                 Nome = user.Nome,
                 Cognome = user.Cognome,
+                Indirizzo = user.Indirizzo,
+                Città = user.Città,
+                CAP = user.CAP,
+                Telefono = user.Telefono,
+                Professione = user.Professione,
+                Organizzazione = user.Organizzazione,
             });
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditUs([Bind(Include = "Id,Email,Nome,Cognome")] EditUsViewModel editUser)
+        public async Task<ActionResult> EditUs([Bind(Include = "Id,Email,Nome,Cognome,Indirizzo,Città,CAP,Telefono,Professione,Organizzazione")] EditUsViewModel editUser)
         {
             if (ModelState.IsValid)
             {
@@ -257,6 +278,11 @@ namespace CamenMVC.Controllers
                 user.Email = editUser.Email;
                 user.Nome = editUser.Nome;
                 user.Cognome = editUser.Cognome;
+                user.Indirizzo = editUser.Indirizzo;
+                user.CAP = editUser.CAP;
+                user.Città = editUser.Città;
+                user.Professione = editUser.Professione;
+                user.Organizzazione = editUser.Organizzazione;
 
                 await UserManager.UpdateAsync(user);
                 return RedirectToAction("IndexUs");
@@ -264,8 +290,6 @@ namespace CamenMVC.Controllers
             ModelState.AddModelError("", "Something failed.");
             return View();
         }
-
-
         //
         // GET: /Users/Delete/5
         [Authorize(Roles = "Admin")]
@@ -313,24 +337,60 @@ namespace CamenMVC.Controllers
             return View();
         }
 
-        public ActionResult FotoProfilo()
+        public ActionResult FotoProfilo(string id)
         {
-            var utente = User.Identity.GetUserId();
+            var utente = id;
             ViewBag.uid = utente;
             return View();
         }
 
         [HttpPost]
-        public ActionResult FotoProfilo(HttpPostedFileBase file)
+        public ActionResult FotoProfilo([Bind(Include = "Id")] EditFotoViewModel editUser, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                var utente = User.Identity.GetUserId();
+                var utente = editUser.Id;
                 if (file != null && file.ContentLength > 0)
                     try
                     {
                         string estensione = Path.GetExtension(file.FileName).ToLower();
-                        file.SaveAs(Server.MapPath("/Content/Immagini/FotoIscritti/" + utente + estensione));
+                        var path = Path.Combine(Server.MapPath("/Content/Immagini/FotoIscritti/"), utente + estensione);
+                        WebImage img = new WebImage(file.InputStream);
+                        var larghezza = img.Width;
+                        var altezza = img.Height;
+                        var rapportoO = larghezza / altezza;
+                        var rapportoV = altezza / larghezza;
+                        if (altezza > 300 | larghezza > 300)
+                        {
+                            if (rapportoO >= 1)
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Resize(300, 300 / rapportoO);
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                            }
+                            else
+                            {
+                                img.Resize(300 / rapportoV, 300);
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                            }
+                        }
+                        else
+                        {
+                            if (rapportoO >= 1)
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine orizzontale avvenuto con successo. Dimensione immagine originale: larghezza " + larghezza + " Altezza " + altezza;
+                            }
+                            else
+                            {
+                                ViewBag.Message = "Attendi la fine del download...";
+                                img.Save(path);
+                                ViewBag.Message = "Download immagine verticale avvenuto con successo. Dimensione immagine: larghezza " + larghezza + "Altezza" + altezza;
+                            }
+                        }
                         ViewBag.uid = utente;
                         ViewBag.Message = "Foto caricata correttamente";
                         return View();

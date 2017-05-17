@@ -251,6 +251,18 @@
     <Compile Include="Migrations\201704101018470_statistiche.Designer.cs">
       <DependentUpon>201704101018470_statistiche.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705121353372_anagrafica.cs" />
+    <Compile Include="Migrations\201705121353372_anagrafica.Designer.cs">
+      <DependentUpon>201705121353372_anagrafica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705121410144_anagrafica1.cs" />
+    <Compile Include="Migrations\201705121410144_anagrafica1.Designer.cs">
+      <DependentUpon>201705121410144_anagrafica1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705150830287_bloccoutente.cs" />
+    <Compile Include="Migrations\201705150830287_bloccoutente.Designer.cs">
+      <DependentUpon>201705150830287_bloccoutente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -997,6 +1009,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704101018470_statistiche.resx">
       <DependentUpon>201704101018470_statistiche.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121353372_anagrafica.resx">
+      <DependentUpon>201705121353372_anagrafica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121410144_anagrafica1.resx">
+      <DependentUpon>201705121410144_anagrafica1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705150830287_bloccoutente.resx">
+      <DependentUpon>201705150830287_bloccoutente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

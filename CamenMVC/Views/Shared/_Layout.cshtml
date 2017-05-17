@@ -26,16 +26,6 @@
 <body>
 @{
     ApplicationDbContext db = new ApplicationDbContext();
-    //formattazione del menu per amministratore -ABBADONATO PER PROBLEMI DI SOVRAPPOSIZIONE DEL MENU CON LE PAGINE""
-    var cl = "";
-    if (User.IsInRole("Admin"))
-    {
-        cl = "navbar-inverse navi1";
-    }
-    else
-    {
-        cl = "navbar-inverse navi1";
-    }
     //Menu per documenti riservati sulla destra
     if (User.Identity.IsAuthenticated)
     {
@@ -45,6 +35,8 @@
                 <img src="~/Content/Immagini/biblioteca.png" />
             </a>
         </div>
+
+        //Collegamento statistiche per amministratore
         if (User.IsInRole("Admin"))
         {
             <div class="docus">
@@ -60,8 +52,8 @@
 
         }
     }
-
-    <div class="@cl">
+    //Barra dei menu superiore
+    <div class="navbar-inverse navi1">
         <a href="@Url.Action("Index", "Home")" class="pull-left"><img class="img-logo-header" src="~/Content/Immagini/LogoHeaderBianco.png" /></a>
         <div class="pull-right">@Html.Partial("_LoginPartial")</div>
         <div class="container">

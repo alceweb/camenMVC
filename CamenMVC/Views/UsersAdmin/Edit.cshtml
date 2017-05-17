@@ -10,11 +10,13 @@
     <div class="col col-md-4 text-center">
         @if (File.Exists(@Server.MapPath("/Content/Immagini/FotoIscritti/" + @Html.DisplayFor(modelItem => Model.Id) + ".jpg")))
         {
-            <img src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @Html.DisplayFor(modelItem => Model.Id) + ".jpg")" />
+            <div><img src="@Url.Content("~/Content/Immagini/FotoIscritti/" + @Html.DisplayFor(modelItem => Model.Id) + ".jpg")" /></div><br />
+            <div>@Html.ActionLink("Modifica", "FotoProfilo", new { id = Model.Id }, new { @class = "btn btn-primary" })</div>
         }
         else
         {
-            <img src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" />
+            <div><img src="@Url.Content("~/Content/Immagini/FotoIscritti/Anonimous.jpg")" /></div><br/>
+            <div>@Html.ActionLink("Modifica", "FotoProfilo", new { id = Model.Id }, new { @class = "btn btn-primary" })</div>
         }
     </div>
     <div class="col col-md-8">
@@ -54,6 +56,38 @@
                         @Html.ValidationMessageFor(model => model.Cognome)
                     </div>
                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Indirizzo, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Indirizzo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Indirizzo)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CAP, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.CAP, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CAP)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Città, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Città, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Città)
+                    </div>
+                </div>
+                <div class="form-group alert">
+                    @Html.LabelFor(model => model.Bloccato, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(m => m.Bloccato, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Bloccato)
+                    </div>
+                </div>
+                <hr/>
+
                 <div class="form-group">
                     <div class="col-md-10">
                     </div>

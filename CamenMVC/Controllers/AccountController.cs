@@ -77,11 +77,11 @@ namespace CamenMVC.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (model.Email != "cesare@cr-consult.eu")
+                    if (model.Email != "cesare@cr-consult.eu" && model.Email != "bill@cr-consult.eu")
                     {
                     statistiche.Data = DateTime.Now;
                     statistiche.Ip = Request.UserHostAddress;
@@ -169,6 +169,13 @@ namespace CamenMVC.Controllers
                 user.Nome = model.Nome;
                 user.Cognome = model.Cognome;
                 user.Cognome = model.Cognome;
+                user.Indirizzo = model.Indirizzo;
+                user.Città = model.Città;
+                user.CAP = model.CAP;
+                user.Professione = model.Professione;
+                user.Organizzazione = model.Organizzazione;
+                user.Telefono = model.Telefono;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
