@@ -75,33 +75,41 @@ namespace CamenMVC.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-            switch (result)
+            if (model.Bloccato)
             {
-                case SignInStatus.Success:
-                    if (model.Email != "cesare@cr-consult.eu" && model.Email != "bill@cr-consult.eu")
-                    {
-                    statistiche.Data = DateTime.Now;
-                    statistiche.Ip = Request.UserHostAddress;
-                    statistiche.Pagina = returnUrl;
-                    ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
-                    statistiche.UName = user.Nome + user.Cognome;
-                    statistiche.UId = user.Id;
-                    db.Statistiches.Add(statistiche);
-                    db.SaveChanges();
+                return View("Blocked");
+            }
+            else
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        if (model.Email != "cesare@cr-consult.eu" && model.Email != "bill@cr-consult.eu")
+                        {
+                        statistiche.Data = DateTime.Now;
+                        statistiche.Ip = Request.UserHostAddress;
+                        statistiche.Pagina = returnUrl;
+                        ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
+                        statistiche.UName = user.Nome + user.Cognome;
+                        statistiche.UId = user.Id;
+                        db.Statistiches.Add(statistiche);
+                        db.SaveChanges();
 
-                    }
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                        }
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+
             }
         }
 
@@ -198,6 +206,10 @@ namespace CamenMVC.Controllers
                         user.Email + "] " +
                         "<br/> si è registrato al sito www.camen.org<hr/><ul><li> Indirizzo: <strong>" +
                         model.Indirizzo +
+                        "</strong></li><li> CAP: <strong>" +
+                        model.CAP +
+                        "</strong></li><li> Città: <strong>" +
+                        model.Città +
                         "</strong></li><li> Telefono: <strong>" +
                         model.Telefono +
                          "</strong></li><li> Professione: <strong>" +

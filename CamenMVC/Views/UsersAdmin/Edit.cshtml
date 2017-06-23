@@ -79,7 +79,21 @@
                         @Html.ValidationMessageFor(model => model.Città)
                     </div>
                 </div>
-                <div class="form-group alert">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Professione, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Professione, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Professione)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Organizzazione, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Organizzazione, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Organizzazione)
+                    </div>
+                </div>
+              <div class="form-group alert">
                     @Html.LabelFor(model => model.Bloccato, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.CheckBoxFor(m => m.Bloccato, new { @class = "form-control" })
